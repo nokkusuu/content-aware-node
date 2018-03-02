@@ -132,7 +132,7 @@
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
 			window.c.shrink();
-			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width));
+			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/10));
 		}
 		btn.removeAttribute("disabled");
 	}
