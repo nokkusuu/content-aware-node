@@ -42,9 +42,11 @@
 			carver.canvas.width = carver.rotvas.width = w;
 			carver.canvas.height = carver.rotvas.height = h;
 			carver.context.drawImage(img, 0, 0, w, h);
-			carver.rottext.drawImage(img,0,0,w,h);
 			carver.w = w;
 			carver.h = h;
+			this.img2=new Image();
+			this.img2.onload=function(){carver.rottext.drawImage(this.img2,0,0);}
+			this.img2.src=carver.context.toDataURL("image/png");
 		};
 		img.src = url; // trigger image loading
 		this.shrink = function() {
