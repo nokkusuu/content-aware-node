@@ -127,12 +127,12 @@
 			this.w--;
 		};
 	}
-	var c = new Carver("c", url);
+	window.c = new Carver("c", url);
 	async function perform_magic(btn, n) {
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
-			c.shrink();
-			await new Promise(sleep=>setTimeout(sleep,c.canvas.width));
+			window.c.shrink();
+			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width));
 		}
 		btn.removeAttribute("disabled");
 	}
@@ -141,7 +141,7 @@
   var reader  = new FileReader();
   reader.addEventListener("load", function () {
     document.querySelector('img').src=reader.result;
-	  
+	  window.c=new Carver("c", reader.result);
   }, false);
   if (file) {
     reader.readAsDataURL(file);
