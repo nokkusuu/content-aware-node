@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYPE html5>
 <html>
 	<head>
-		<title>Canvas seam carving</title>
+		<title>Content Aware Scaling</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<style type="text/css">
 			#c {
@@ -21,8 +21,9 @@
 		</style>
 	</head>
 	<body><div>
-	  <button onclick="perform_magic(this, 20);">Click here to remove 20 columns (warning: very slow)</button><hr/>
-		<img src="image.jpg" id="i"/> <h3>Input</h3> <hr />
+	<input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
+	  <button onclick="perform_magic(this, 20);">Shrink by 10 Columns</button><hr/>
+		<label for="input"><img src="image.jpg" id="i"/> <h3>Input</h3></label> <hr />
 		<canvas id="c"></canvas> <h3>Output</h3> <hr />
 <script type="text/javascript">
 	function Carver(canvasId, url) {
@@ -126,15 +127,26 @@
 			this.w--;
 		};
 	}
-	var c = new Carver("c", "image.jpg");
+	var c = new Carver("c", url);
 	async function perform_magic(btn, n) {
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
 			c.shrink();
-			await new Promise(sleep=>setTimeout(sleep,10));
+			await new Promise(sleep=>setTimeout(sleep,c.canvas.width));
 		}
 		btn.removeAttribute("disabled");
 	}
+	document.querySelector('#input').onchange=function(){
+  var file    = document.querySelector('#input').files[0];
+  var reader  = new FileReader();
+  reader.addEventListener("load", function () {
+    document.querySelector('img').src=reader.result;
+	  
+  }, false);
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
 </script>
 </div></body>
 </html>
