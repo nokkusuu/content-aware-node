@@ -21,29 +21,10 @@
 		</style>
 	</head>
 	<body><div>
-
-	  <a href="http://github.com/nicolasff/canvas-seam-carving"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
-
-	  <h1>Content-Aware Image Resizing using HTML5 &lt;canvas&gt;</h1>
-	  <p>
-	  This page is a very basic demo of Content-Aware Image Resizing (CAIR) using <a href="http://en.wikipedia.org/wiki/Seam_Carving">seam carving</a>.<br/>
-	  The demo is very slow, so you can <a href="screenshot.png">see a screenshot of the effect with a 50% resize</a> if you don’t want to wait. There is a lot of room for improvement.<br/>
-	  </p>
-	  <p>
-	  The algorithm is the following: 
-	  <ol>
-		  <li>For each pixel from the top row, find the pixel under it that has the closest color (directly under or 1 pixel to the side.)</li>
-		  <li>Add the color distance to a column score.</li>
-		  <li>Repeat until arriving at the bottom row.</li>
-		  <li>Repeat steps 1 &ndash; 3 for each column.</li>
-		  <li>Remove the column with the lowest total score.</li>
-	  </ol>
-	  </p>
 	  <button onclick="perform_magic(this, 20);">Click here to remove 20 columns (warning: very slow)</button><hr/>
-		
-		<img src="image.jpg" id="i" alt="pier"/> <h3>← Original image</h3> <hr />
-		<img src="image.jpg" id="naive" alt="pier, resized by the browser"/> <h3>← &lt;img&gt; tag, resized by the browser</h3> <hr />
-		<canvas id="c"></canvas> <h3>← Context-aware resizing in &lt;canvas&gt; (seam carving)</h3> <hr />
+		<img src="image.jpg" id="i"/> <h3>Input</h3> <hr />
+		<img src="image.jpg" id="naive"/> <h3>bla</h3> <hr />
+		<canvas id="c"></canvas> <h3>Output</h3> <hr />
 
 
 <script type="text/javascript">
