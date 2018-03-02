@@ -23,7 +23,6 @@
 	<body><div>
 	  <button onclick="perform_magic(this, 20);">Click here to remove 20 columns (warning: very slow)</button><hr/>
 		<img src="image.jpg" id="i"/> <h3>Input</h3> <hr />
-		<img src="image.jpg" id="naive"/> <h3>bla</h3> <hr />
 		<canvas id="c"></canvas> <h3>Output</h3> <hr />
 <script type="text/javascript">
 	function Carver(canvasId, url) {
@@ -128,10 +127,11 @@
 		};
 	}
 	var c = new Carver("c", "image.jpg");
-	function perform_magic(btn, n) {
+	async function perform_magic(btn, n) {
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
 			c.shrink();
+			await new Promise(resolve => setTimeout(resolve, ms));
 		}
 		btn.removeAttribute("disabled");
 	}
