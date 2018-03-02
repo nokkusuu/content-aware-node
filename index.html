@@ -131,7 +131,7 @@
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
 			c.shrink();
-			await new Promise(resolve => setTimeout(resolve, ms));
+			await new Promise(sleep=>setTimeout(sleep,10));
 		}
 		btn.removeAttribute("disabled");
 	}
