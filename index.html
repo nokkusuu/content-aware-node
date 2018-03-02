@@ -28,6 +28,9 @@
 <script type="text/javascript">
 	function Carver(canvasId, url) {
 		// create canvas & drawing context
+		this.rotvas=document.createElement('canvas');
+		this.rottext=this.rotvas.getContext('2d');
+		this.rottext.rotate(90*Math.PI/180);
 		this.canvas = document.getElementById(canvasId);
 		this.context = this.canvas.getContext('2d');
 		var carver = this;
@@ -36,9 +39,10 @@
 		img.onload = function() {
 			w = this.width;
 			h = this.height;
-			carver.canvas.width = w;
-			carver.canvas.height = h;
+			carver.canvas.width = carver.rotvas.width = w;
+			carver.canvas.height = carver.rotvas.height = h;
 			carver.context.drawImage(img, 0, 0, w, h);
+			carver.rottext.drawImage(img,0,0,w,h);
 			carver.w = w;
 			carver.h = h;
 		};
@@ -127,7 +131,7 @@
 			this.w--;
 		};
 	}
-	window.c = new Carver("c", "image.jpg");
+	window.c = new Carver("c", "image.jpg");//make 2nd
 	async function perform_magic(btn, n) {
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
