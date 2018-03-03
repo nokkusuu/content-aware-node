@@ -71,7 +71,7 @@
 			await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));
 		}
 		var imgd=new Image();
-		imgd.src=window.c.canvas.toDataURL("image/png");
+		imgd.src=window.d.canvas.toDataURL("image/png");
 		imgd.onload=function(){
 		window.memvas.width=window.d.canvas.height;
 		window.memvas.height=window.d.canvas.width;
@@ -79,8 +79,8 @@
 		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
 		window.memtext.rotate(-90*Math.PI/180);
 		window.memtext.drawImage(imgd,0,0);
-		callback(window.memvas.toDataURL("image/png"));
 		window.memtext.restore();
+		callback(window.memvas.toDataURL("image/png"));
 		}
 		}
 	}catch(e){alert(e);}}
