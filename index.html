@@ -20,15 +20,17 @@
 		<label for="input"><h3>Input</h3><img id="i"/></label><br>
 		<h3>Output</h3>
 		<canvas id="c"></canvas><br>
-		<canvas id="d"></canvas>
+		<canvas id="d"></canvas><br>
+		<h3>Result</h3>
+		<img id="res"/>
 <script type="text/javascript">
 	function doEverything(btn,scale,url){
 		btn.setAttribute('disabled','disabled');
 		var img=document.getElementById('i');
-		img.onload=function(){doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url,user){document.querySelector("res").src=url;user[0].removeAttribute('disabled');},[btn]);}
+		img.onload=function(){doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url,args){document.getElementById("res").src=url;args[0].removeAttribute('disabled');},[btn]);}
 		img.src=url;
 	}
-	async function doCarve(url, x, y, callback){try{
+	async function doCarve(url, x, y, callback, callbackvars){try{
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
 		window.c=new Carver("c",url);
@@ -65,7 +67,7 @@
 		window.memtext.restore();
 		}
 		}
-		callback(window.memvas.toDataURL());
+		callback(window.memvas.toDataURL(),callbackvars);
 	}catch(e){alert(e);}}
 	function Carver(canvasId, url) {
 		// create canvas & drawing context
