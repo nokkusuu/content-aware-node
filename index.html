@@ -152,7 +152,7 @@
   var reader  = new FileReader();
   reader.addEventListener("load", function () {
     document.querySelector('img').src=reader.result;
-	  window.c=new Carver("c", reader.result);
+	  window.c=new Carver("c", reader.result,0);
   }, false);
   if (file) {
     reader.readAsDataURL(file);
