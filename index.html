@@ -8,7 +8,7 @@
 		window.onerror = function (errorMsg, url, lineNumber) {alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);}
 		</script>
 		<style type="text/css">
-			#c {
+			canvas {
 				border: none;
 				margin-top: 5px;
 			}
@@ -22,6 +22,7 @@
 				Visibility: hidden;
 				clear: both;
 			}
+			#d{-ms-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);transform:rotate(-90deg);}
 		</style>
 	</head>
 	<body><div>
@@ -47,7 +48,7 @@
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
 		for(var o=0;o<2;o++){
-		window.c=new Carver("c",o?window.memvas.toDataURL("image/png"):url);
+		window.c=new Carver(o?"c":"d",o?window.memvas.toDataURL("image/png"):url);
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var i=0;i<x;i++){
 			window.c.shrink();
@@ -64,6 +65,8 @@
 		window.memtext.drawImage(imgc,0,0);
 		window.memtext.restore();
 		}
+		}
+		callback(window.memvas.toDataURL("image/png"));
 		/*
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		await new Promise(sleep=>setTimeout(sleep,500));
@@ -83,7 +86,6 @@
 		window.memtext.restore();
 		callback(window.memvas.toDataURL("image/png"));
 		}*/
-		callback(window.memvas.toDataURL("image/png"));
 		}
 	}catch(e){alert(e);}}
 	function Carver(canvasId, url) {
