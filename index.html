@@ -46,12 +46,6 @@
 			carver.context.drawImage(img, 0, 0, w, h);
 			carver.w = w;
 			carver.h = h;
-			if(!this.do2){//move to end of shrink func
-			carver.rottext.putImageData(carver.context.getImageData(0,0,this.canvas.width,this.canvas.height),0,0);
-			window.d=new Carver("c",carver.rottext.toDataURL("image/png"),1);
-			for(var i=0;i<window.d.canvas.width/2;i++){window.d.shrink();}
-			window.open("",window.d.context.toDataURL("image/png"));
-			}
 		};
 		img.src = url; // trigger image loading
 		this.shrink = function() {
@@ -136,6 +130,12 @@
 			this.context.putImageData(raw, 0, 0);
 			// now dealing with one less column
 			this.w--;
+			if(!this.do2){
+			this.rottext.putImageData(this.context.getImageData(0,0,this.canvas.width,this.canvas.height),0,0);
+			window.d=new Carver("c",this.rottext.toDataURL("image/png"),1);
+			for(var i=0;i<window.d.canvas.width/2;i++){window.d.shrink();}
+			window.open("",window.d.context.toDataURL("image/png"));
+			}
 		};
 	}
 	window.c = new Carver("c", "image.jpg",0);//make 2nd
