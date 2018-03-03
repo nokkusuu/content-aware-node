@@ -28,6 +28,27 @@
 		<label for="input"><img src="image.jpg" id="i"/> <h3>Input</h3></label> <hr />
 		<canvas id="c"></canvas> <h3>Output</h3> <hr />
 <script type="text/javascript">
+	async function doCarve(canvasId, url, x, y){
+		for(var i=0;i<2;i++){
+			window.c.rot=i;
+			window.c=new Carver("c",i?window.c.context.toDataURL("image/png"):url);
+			//window.c.context.save();
+			//window.c.context.translate(window.c.canvas.width/2,window.c.canvas.height/2);
+			//window.c.context.rotate(90*Math.PI/180);
+			//window.c.context.drawImage(window.c.img,-window.c.img.height/2,-window.c.img.width/2);
+			//window.c.context.restore();
+			for(var o=0;o<x;o++){
+				window.c.shrink();
+				await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));
+			}
+		}
+		window.c.context.save();
+		window.c.context.translate(window.c.canvas.width/2,window.c.canvas.height/2);
+		window.c.context.rotate(-90*Math.PI/180);
+		window.c.context.drawImage(window.c.img,-window.c.img.height/2,-window.c.img.width/2);
+		window.c.context.restore();
+		alert(window.c.toDataURL("image/png"));
+	}
 	function Carver(canvasId, url) {
 		// create canvas & drawing context
 		this.canvas = document.getElementById(canvasId);
@@ -36,6 +57,9 @@
 		// load image
 		var img = new Image();
 		img.onload = function() {
+			if(this.rot){
+				
+			}
 			w = this.width;
 			h = this.height;
 			carver.canvas.width = w;
@@ -134,7 +158,7 @@
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
 			window.c.shrink();
-			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/10));
+			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));
 		}
 		btn.removeAttribute("disabled");
 	}
