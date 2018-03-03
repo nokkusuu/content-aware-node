@@ -28,16 +28,20 @@
 	        <input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
 		<button onclick="perform_magic(this, window.c.canvas.width);">Shrink 100%</button>
 		<button onclick="perform_magic(this, 20);">Shrink by 10 Columns</button><hr/>
-		<button onclick="doEverything(this,50);">Content Aware Scale</button><hr/>
-		<label for="input"><img src="image.jpg" id="i"/> <h3>Input</h3></label> <hr />
+		<button onclick="doEverything(this,50,'image.jpg');">Content Aware Scale</button><hr/>
+		<label for="input"><img src="" id="i"/> <h3>Input</h3></label> <hr />
 		<canvas id="c"></canvas> <h3>Output</h3> <hr />
 		<canvas id="d"></canvas>
 <script type="text/javascript">
-	function doEverything(btn,scale){
+	function doEverything(btn,scale,url){
 		btn.setAttribute('disabled','disabled');
 		var img=document.getElementById('i');
-		doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url){alert(url);});
-		btn.removeAttribute("disabled");
+		if(!img){alert('img nonexistant');}
+		img.onload=function(){
+			doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url){alert(url);});
+			btn.removeAttribute("disabled");
+		}
+		img.src=url;
 	}
 	async function doCarve(url, x, y, callback){try{
 		window.memvas=document.createElement('canvas');
