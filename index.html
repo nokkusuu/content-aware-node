@@ -56,6 +56,8 @@
 		window.memvas.height=window.c.img.height;
 		window.memtext.putImageData(window.c.context.getImageData(0,0,window.c.canvas.width,window.c.canvas.height),0,0);
 		window.c.context.save();
+		window.c.canvas.width=window.c.img.height;
+		window.c.canvas.height=window.c.img.width;
 		window.c.context.translate(window.c.canvas.width/2,window.c.canvas.height/2);
 		window.c.context.rotate(90*Math.PI/180);
 		window.c.context.drawImage(window.memvas,-window.c.img.height/2,-window.c.img.width/2);
@@ -71,6 +73,8 @@
 		window.memvas.height=window.d.img.height;
 		window.memtext.putImageData(window.d.context.getImageData(0,0,window.d.canvas.width,window.d.canvas.height),0,0);
 		window.d.context.save();
+		window.d.canvas.width=window.d.img.height;
+		window.d.canvas.height=wimdow.d.img.width;
 		window.d.context.translate(window.d.canvas.width/2,window.d.canvas.height/2);
 		window.d.context.rotate(-90*Math.PI/180);
 		window.d.context.drawImage(window.memvas,-window.d.img.height/2,-window.d.img.width/2);
