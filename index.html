@@ -43,7 +43,7 @@
 			carver.h = h;
 		};
 		img.src = url; // trigger image loading
-		this.shrink = function(rotated) {
+		this.shrink = function() {
 			// get raw data
 			var raw = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 			// difference between two pixels (color vector distance)
@@ -125,26 +125,13 @@
 			this.context.putImageData(raw, 0, 0);
 			// now dealing with one less column
 			this.w--;
-			if(!rotated){
-			this.context.save();
-			this.context.rotate(90*Math.PI/180);
-			this.context.putImageData(raw,0,0);
-			this.context.restore();
-			this.shrink(1);
-			}else{
-			this.context.save();
-			this.context.rotate(-90*Math.PI/180);
-			this.context.putImageData(raw,0,0);
-			this.context.restore();
-			window.open("",this.context.toDataURL("image/png"));
-			}
 		};
 	}
-	window.c = new Carver("c", "image.jpg");//make 2nd
+	window.c = new Carver("c", "image.jpg", 0);
 	async function perform_magic(btn, n) {
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
-			window.c.shrink(0);
+			window.c.shrink();
 			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/10));
 		}
 		btn.removeAttribute("disabled");
