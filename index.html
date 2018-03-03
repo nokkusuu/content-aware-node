@@ -55,7 +55,7 @@
 		//get rid of memvas and memtext
 		var imgc=new Image();
 		imgc.src=window.c.canvas.toDataURL("image/png");
-		imgc.onload=function(){
+		imgc.onload=async function(){
 		window.memvas.width=window.c.canvas.height;
 		window.memvas.height=window.c.canvas.width;
 		window.memtext.save();
