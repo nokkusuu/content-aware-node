@@ -72,13 +72,15 @@
 		window.memtext.clearRect(0,0,window.memvas.width,window.memvas.height);
 		window.memvas.width=window.d.img.width;
 		window.memvas.height=window.d.img.height;
-		window.memtext.putImageData(window.d.context.getImageData(0,0,window.d.canvas.width,window.d.canvas.height),0,0);
-		window.d.context.save();
-		window.d.context.translate(window.d.canvas.width/2,window.d.canvas.height/2);
-		window.d.context.rotate(-90*Math.PI/180);
-		window.d.context.drawImage(window.memvas,-window.d.img.height/2,-window.d.img.width/2);
-		window.d.context.restore();
-		callback(window.d.canvas.toDataURL("image/png"));
+		//window.memtext.putImageData(window.d.context.getImageData(0,0,window.d.canvas.width,window.d.canvas.height),0,0);
+		window.memtext.save();
+		window.memtext.translate(window.memvas.width/2,window.memvas.height/2);
+		window.memtext.rotate(-90*Math.PI/180);
+		window.memvas.width=window.d.img.height;
+		window.memvas.height=window.d.img.width;
+		window.memtext.drawImage(window.d.canvas,window.memvas.width,window.memvas.height);
+		window.memtext.restore();
+		callback(window.memvas.toDataURL("image/png"));
 	}catch(e){alert(e);}}
 	function Carver(canvasId, url) {
 		// create canvas & drawing context
