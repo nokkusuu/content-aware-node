@@ -63,7 +63,6 @@
 		window.memtext.rotate(Math.PI/2);
 		window.memtext.drawImage(imgc,0,0);
 		window.memtext.restore();
-		}
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var o=0;o<y;o++){
@@ -80,6 +79,7 @@
 		window.memtext.rotate(Math.PI/2);
 		window.memtext.drawImage(imgd,window.memvas.width,window.memvas.height);
 		window.memtext.restore();
+		}
 		}
 		callback(window.memvas.toDataURL());
 	}catch(e){alert(e);}}
