@@ -28,11 +28,11 @@
 	<input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
 		<button onclick="perform_magic(this, window.c.canvas.width);">Shrink 100%</button>
 		<button onclick="perform_magic(this, 20);">Shrink by 10 Columns</button><hr/>
-		<button onclick="contentawarescale(this,50,'image.jpg');">Content Aware Scale</button><hr/>
+		<button onclick="doEverything(this,50,'image.jpg');">Content Aware Scale</button><hr/>
 		<label for="input"><img src="image.jpg" id="i"/> <h3>Input</h3></label> <hr />
 		<canvas id="c"></canvas> <h3>Output</h3> <hr />
 <script type="text/javascript">
-	function contentawarescale(btn,scale,url){
+	function doEverything(btn,scale,url){
 		btn.setAttribute('disabled','disabled');
 		var img = new Image();
 		img.onload = function(){
@@ -43,14 +43,14 @@
 	}
 	async function doCarve(url, x, y){
 		for(var i=0;i<2;i++){
-			window.c.rot=i;
+			window.rot=i;
 			window.c=new Carver("c",i?window.c.context.toDataURL("image/png"):url);
 			for(var o=0;o<(i?y:x);o++){
 				window.c.shrink();
 				await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));
 			}
 		}
-		window.c.rot=0;
+		window.rot=0;
 		window.c.context.save();
 		window.c.context.translate(window.c.canvas.width/2,window.c.canvas.height/2);
 		window.c.context.rotate(-90*Math.PI/180);
@@ -70,7 +70,7 @@
 			h = this.height;
 			carver.canvas.width = w;
 			carver.canvas.height = h;
-			if(carver.rot){
+			if(window.rot){
 				carver.context.save();
 				carver.context.translate(carver.canvas.width/2,carver.canvas.height/2);
 				carver.context.rotate(90*Math.PI/180);
