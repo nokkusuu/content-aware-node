@@ -4,43 +4,28 @@
 		<title>Content Aware Scaling</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
-		<script>
-		window.onerror = function (errorMsg, url, lineNumber) {alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);}
-		</script>
+		<script>window.onerror = function (errorMsg, url, lineNumber) {alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);}</script>
 		<style type="text/css">
-			canvas {
-				border: none;
-				margin-top: 5px;
-			}
-			h3, img, canvas {
-				float: left;
-			}
-			h3 {
-				margin-left: 1em;
-			}
-			hr {
-				Visibility: hidden;
-				clear: both;
-			}
+			canvas{border:none;margin-top:5px;}
+			h3,img,canvas{float:left;}
+			h3{margin-left:1em;}
 			#d{-ms-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);transform:rotate(-90deg);}
 		</style>
 	</head>
 	<body><div>
 	        <input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
-		<button onclick="perform_magic(this, window.c.canvas.width);">Shrink 100%</button>
-		<button onclick="perform_magic(this, 20);">Shrink by 10 Columns</button><hr/>
-		<button onclick="doEverything(this,50,'image.jpg');">Content Aware Scale</button><hr/>
-		<label for="input"><img src="" id="i"/> <h3>Input</h3></label> <hr />
-		<canvas id="c"></canvas> <h3>Output</h3> <hr />
+		<button onclick="perform_magic(this, window.c.canvas.width);">Shrink 100%</button><br>
+		<button onclick="perform_magic(this, 20);">Shrink by 10 Columns</button><br>
+		<button onclick="doEverything(this,50,'image.jpg');">Content Aware Scale</button><br/>
+		<label for="input"><h3>Input</h3><img id="i"/></label><br>
+		<h3>Output</h3>
+		<canvas id="c"></canvas><br>
 		<canvas id="d"></canvas>
 <script type="text/javascript">
 	function doEverything(btn,scale,url){
 		btn.setAttribute('disabled','disabled');
 		var img=document.getElementById('i');
-		img.onload=function(){
-			doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url){alert(url);});
-			btn.removeAttribute("disabled");
-		}
+		img.onload=function(){doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url,user){document.querySelector("res").src=url;user[0].removeAttribute('disabled');},[btn]);}
 		img.src=url;
 	}
 	async function doCarve(url, x, y, callback){try{
