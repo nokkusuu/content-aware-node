@@ -71,8 +71,6 @@
 		window.memvas.height=window.d.img.width;
 		window.memtext.putImageData(window.d.context.getImageData(0,0,window.d.canvas.width,window.d.canvas.height),0,0);
 		window.d.context.save();
-		window.d.canvas.width=window.d.img.height;
-		window.d.canvas.height=window.d.img.width;
 		window.d.context.translate(window.d.canvas.width/2,window.d.canvas.height/2);
 		window.d.context.rotate(-90*Math.PI/180);
 		window.d.context.drawImage(window.memvas,-window.d.img.height/2,-window.d.img.width/2);
