@@ -83,19 +83,9 @@
 			h = this.height;
 			carver.canvas.width = w;
 			carver.canvas.height = h;
-			if(window.rot){
-				carver.context.save();
-				carver.context.translate(carver.canvas.width/2,carver.canvas.height/2);
-				carver.context.rotate(90*Math.PI/180);
-				carver.context.drawImage(img,-this.height/2,-this.width/2);
-				carver.context.restore();
-				carver.w = w;//h
-				carver.h = h;//w
-			}else{
-				carver.context.drawImage(img,0,0,w,h);
-				carver.w = w;
-				carver.h = h;
-			}
+			carver.context.drawImage(img,0,0,w,h);
+			carver.w = w;
+			carver.h = h;
 		};
 		img.src = url; // trigger image loading
 		this.shrink = function() {
