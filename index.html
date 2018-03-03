@@ -48,7 +48,7 @@
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
 		for(var o=0;o<2;o++){
-		window.c=new Carver(o?"c":"d",o?window.memvas.toDataURL("image/png"):url);
+		window.c=new Carver(o?"d":"c",o?window.memvas.toDataURL("image/png"):url);
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var i=0;i<x;i++){
 			window.c.shrink();
