@@ -77,8 +77,8 @@
 		window.memvas.height=window.d.canvas.width;
 		window.memtext.save();
 		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
-		window.memtext.rotate(90*Math.PI/180);
-		window.memtext.drawImage(imgd,0,0,-window.memvas.width,-window.memvas.height);
+		window.memtext.rotate(-90*Math.PI/180);
+		window.memtext.drawImage(imgd,window.memvas.width,window.memvas.height);
 		window.memtext.restore();
 		callback(window.memvas.toDataURL("image/png"));
 		}
