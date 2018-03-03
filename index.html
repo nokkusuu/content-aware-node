@@ -26,15 +26,10 @@
 		<label for="input"><img src="image.jpg" id="i"/> <h3>Input</h3></label> <hr />
 		<canvas id="c"></canvas> <h3>Output</h3> <hr />
 <script type="text/javascript">
-	function Carver(canvasId, url, second) {
+	function Carver(canvasId, url) {
 		// create canvas & drawing context
-		//this.rotvas=document.createElement('canvas');
-		//this.rottext=this.rotvas.getContext('2d');
-		//this.rottext.rotate(90*Math.PI/180);
 		this.canvas = document.getElementById(canvasId);
 		this.context = this.canvas.getContext('2d');
-		//this.do2=second;
-		//if(this.do2){window.d.context.rotate(-90*Math.PI);}
 		var carver = this;
 		// load image
 		var img = new Image();
@@ -130,12 +125,6 @@
 			this.context.putImageData(raw, 0, 0);
 			// now dealing with one less column
 			this.w--;
-			//if(!this.do2){
-			//this.rottext.putImageData(this.context.getImageData(0,0,this.canvas.width,this.canvas.height),0,0);
-			//window.d=new Carver("c",this.rottext.toDataURL("image/png"),1);
-			//for(var i=0;i<window.d.canvas.width/2;i++){window.d.shrink();}
-			//window.open("",window.d.context.toDataURL("image/png"));
-			//}
 			if(!rotated){
 			this.context.save();
 			this.context.rotate(90*Math.PI/180);
@@ -151,7 +140,7 @@
 			}
 		};
 	}
-	window.c = new Carver("c", "image.jpg",0);//make 2nd
+	window.c = new Carver("c", "image.jpg");//make 2nd
 	async function perform_magic(btn, n) {
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
@@ -165,7 +154,7 @@
   var reader  = new FileReader();
   reader.addEventListener("load", function () {
     document.querySelector('img').src=reader.result;
-	  window.c=new Carver("c", reader.result,0);
+	  window.c=new Carver("c", reader.result);
   }, false);
   if (file) {
     reader.readAsDataURL(file);
