@@ -32,14 +32,11 @@
 		<label for="input"><img src="image.jpg" id="i"/> <h3>Input</h3></label> <hr />
 		<canvas id="c"></canvas> <h3>Output</h3> <hr />
 <script type="text/javascript">
-	function doEverything(btn,scale,url){
+	function doEverything(btn,scale){
 		btn.setAttribute('disabled','disabled');
-		var img = new Image();
-		img.onload = function(){
-			alert(doCarve(url,(scale/100)*img.width,(scale/100)*img.height));
-			btn.removeAttribute("disabled");
-		}
-		img.src = url;
+		var img=document.querySelector('img');
+		alert(doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height));
+		btn.removeAttribute("disabled");
 	}
 	async function doCarve(url, x, y){try{
 		for(var i=0;i<2;i++){
@@ -49,7 +46,7 @@
 				window.c.shrink();
 				await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));
 			}
-		}
+		}o
 		window.rot=0;
 		window.c.context.save();
 		window.c.context.translate(window.c.canvas.width/2,window.c.canvas.height/2);
@@ -169,6 +166,7 @@
 			this.w--;
 		};
 	}
+	window.rot=0;
 	window.c = new Carver("c", "image.jpg");
 	async function perform_magic(btn, n) {
 		btn.setAttribute("disabled", "disabled");
