@@ -76,8 +76,8 @@
 				carver.context.rotate(90*Math.PI/180);
 				carver.context.drawImage(img,-this.height/2,-this.width/2);
 				carver.context.restore();
-				carver.w = h;
-				carver.h = w;
+				carver.w = w;//h
+				carver.h = h;//w
 			}else{
 				carver.context.drawImage(img,0,0,w,h);
 				carver.w = w;
