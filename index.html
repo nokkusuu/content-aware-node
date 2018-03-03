@@ -56,10 +56,10 @@
 		window.memvas.height=window.c.img.width;
 		//window.memtext.putImageData(window.c.context.getImageData(0,0,window.c.canvas.width,window.c.canvas.height),0,0);
 		window.memtext.save();
-		window.memtext.translate(window.memvas.width/2,window.memvas.height/2);
+		//window.memtext.translate(window.memvas.width/2,window.memvas.height/2);
 		window.memtext.rotate(90*Math.PI/180);
 		window.memtext.drawImage(window.c.canvas,window.c.img.width,window.c.img.height);
-		window.memtext.restore();
+		
 		//make d carver be c carver
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		await new Promise(sleep=>setTimeout(sleep,500));
@@ -67,16 +67,18 @@
 			window.d.shrink();
 			await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));
 		}
+		window.memtext.restore();
 		window.memtext.clearRect(0,0,window.memvas.width,window.memvas.height);
 		window.memvas.width=window.d.img.height;
 		window.memvas.height=window.d.img.width;
 		//window.memtext.putImageData(window.d.context.getImageData(0,0,window.d.canvas.width,window.d.canvas.height),0,0);
 		window.memtext.save();
-		window.memtext.translate(window.memvas.width/2,window.memvas.height/2);
+		//window.memtext.translate(window.memvas.width/2,window.memvas.height/2);
 		window.memtext.rotate(-90*Math.PI/180);
 		window.memtext.drawImage(window.d.canvas,window.d.img.width,window.d.img.height);
-		window.memtext.restore();
+		
 		callback(window.memvas.toDataURL("image/png"));
+		window.memtext.restore();
 	}catch(e){alert(e);}}
 	function Carver(canvasId, url) {
 		// create canvas & drawing context
