@@ -47,7 +47,7 @@
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
 		window.c=new Carver("c",url);
-		await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/500));
+		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var i=0;i<x;i++){
 			window.c.shrink();
 			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));
@@ -60,7 +60,8 @@
 		window.c.context.rotate(90*Math.PI/180);
 		window.c.context.drawImage(window.memvas,-window.c.img.height/2,-window.c.img.width/2);
 		window.c.context.restore();
-		window.d=new Carver("d",window.c.context.toDataURL("image/png"));
+		window.d=new Carver("d",window.c.canvas.toDataURL("image/png"));
+		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var o=0;o<y;o++){
 			window.d.shrink();
 			await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));
@@ -74,7 +75,7 @@
 		window.d.context.rotate(-90*Math.PI/180);
 		window.d.context.drawImage(window.memvas,-window.d.img.height/2,-window.d.img.width/2);
 		window.d.context.restore();
-		callback(window.d.toDataURL("image/png"));
+		callback(window.d.canvas.toDataURL("image/png"));
 	}catch(e){alert(e);}}
 	function Carver(canvasId, url) {
 		// create canvas & drawing context
