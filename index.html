@@ -44,6 +44,8 @@
 		img.src=url;
 	}
 	async function doCarve(url, x, y, callback){try{
+		var w=0;
+		var h=0;
 		window.c=new Carver("c",url);
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var i=0;i<x;i++){
@@ -53,13 +55,13 @@
 		var imgc=new Image();
 		imgc.src=window.c.canvas.toDataURL("image/png");
 		imgc.onload=async function(){
-		var w=window.c.canvas.width;
-		var h=window.c.canvas.height;
 		window.c.canvas.width=h;
 		window.c.canvas.height=w;
+		w=window.c.canvas.width;
+		h=window.c.canvas.height;
 		window.c.context.save();
-		window.c.context.translate(window.c.context.width,window.c.context.height/window.c.context.width);
-		window.c.context.rotate(90*Math.PI/180);
+		window.c.context.translate(w,h/w);
+		window.c.context.rotate(Math.PI/2);
 		window.c.context.drawImage(imgc,0,0);
 		window.c.context.restore();
 		//make d into c
@@ -72,13 +74,13 @@
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL("image/png");
 		imgd.onload=function(){
-		var w=window.d.canvas.width;
-		var h=window.d.canvas.height;
 		window.d.canvas.width=h;
 		window.d.canvas.height=w;
+		w=window.d.canvas.width;
+		h=window.d.canvas.height;
 		window.d.context.save();
-		window.d.context.translate(window.d.context.width,window.d.context.height/window.d.context.width);
-		window.d.context.rotate(-90*Math.PI/180);
+		window.d.context.translate(h,w/h);
+		window.d.context.rotate(-Math.PI/2);
 		window.d.context.drawImage(imgd,0,0);
 		window.d.context.restore();
 		callback(window.d.canvas.toDataURL("image/png"));
