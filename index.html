@@ -155,7 +155,7 @@
 	async function perform_magic(btn, n) {
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
-			window.c.shrink();
+			window.c.shrink(0);
 			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/10));
 		}
 		btn.removeAttribute("disabled");
