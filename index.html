@@ -37,7 +37,6 @@
 	function doEverything(btn,scale,url){
 		btn.setAttribute('disabled','disabled');
 		var img=document.getElementById('i');
-		if(!img){alert('img nonexistant');}
 		img.onload=function(){
 			doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url){alert(url);});
 			btn.removeAttribute("disabled");
