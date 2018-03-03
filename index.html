@@ -30,7 +30,7 @@
 		<canvas id="c"></canvas> <h3>Output</h3> <hr />
 <script type="text/javascript">
 	function contentawarescale(btn,scale,url){
-		btn.disabled=1;
+		btn.setAttribute('disabled','disabled');
 		var img = new Image();
 		img.onload = function(){
 			doCarve(url,(scale/100)*img.width,(scale/100)*img.height);
