@@ -44,27 +44,26 @@
 		img.src=url;
 	}
 	async function doCarve(url, x, y, callback){try{
-		window.memvas=document.createElement('canvas');
-		window.memtext=window.memvas.getContext('2d');
 		window.c=new Carver("c",url);
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var i=0;i<x;i++){
 			window.c.shrink();
 			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));
 		}
-		//get rid of memvas and memtext
 		var imgc=new Image();
 		imgc.src=window.c.canvas.toDataURL("image/png");
 		imgc.onload=async function(){
-		window.memvas.width=window.c.canvas.height;
-		window.memvas.height=window.c.canvas.width;
-		window.memtext.save();
-		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
-		window.memtext.rotate(90*Math.PI/180);
-		window.memtext.drawImage(imgc,0,0);
-		window.memtext.restore();
+		var w=window.c.canvas.width;
+		var h=window.c.canvas.height;
+		window.c.canvas.width=h;
+		window.c.canvas.height=w;
+		window.c.context.save();
+		window.c.context.translate(window.c.context.width,window.c.context.height/window.c.context.width);
+		window.c.context.rotate(90*Math.PI/180);
+		window.c.context.drawImage(imgc,0,0);
+		window.c.context.restore();
 		//make d into c
-		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
+		window.d=new Carver("d",window.c.canvas.toDataURL("image/png"));
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var o=0;o<y;o++){
 			window.d.shrink();
@@ -73,14 +72,16 @@
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL("image/png");
 		imgd.onload=function(){
-		window.memvas.width=window.d.canvas.height;
-		window.memvas.height=window.d.canvas.width;
-		window.memtext.save();
-		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
-		window.memtext.rotate(-90*Math.PI/180);
-		window.memtext.drawImage(imgd,window.memvas.width,window.memvas.height);
-		window.memtext.restore();
-		callback(window.memvas.toDataURL("image/png"));
+		var w=window.d.canvas.width;
+		var h=window.d.canvas.height;
+		window.d.canvas.width=h;
+		window.d.canvas.height=w;
+		window.d.context.save();
+		window.d.context.translate(window.d.context.width,window.d.context.height/window.d.context.width);
+		window.d.context.rotate(-90*Math.PI/180);
+		window.d.context.drawImage(imgd,0,0);
+		window.d.context.restore();
+		callback(window.d.canvas.toDataURL("image/png"));
 		}
 		}
 	}catch(e){alert(e);}}
