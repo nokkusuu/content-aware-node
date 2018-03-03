@@ -47,8 +47,7 @@
 	async function doCarve(url, x, y, callback){try{
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
-		for(var o=0;o<2;o++){
-		window.c=new Carver(o?"d":"c",o?window.memvas.toDataURL("image/png"):url);
+		window.c=new Carver("c",url);
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var i=0;i<x;i++){
 			window.c.shrink();
@@ -61,13 +60,10 @@
 		window.memvas.height=window.c.canvas.width;
 		window.memtext.save();
 		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
-		window.memtext.rotate(Math.PI/(o?-2:2));
+		window.memtext.rotate(Math.PI/2);
 		window.memtext.drawImage(imgc,0,0);
 		window.memtext.restore();
 		}
-		}
-		callback(window.memvas.toDataURL("image/png"));
-		/*
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var o=0;o<y;o++){
@@ -75,17 +71,17 @@
 			await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));
 		}
 		var imgd=new Image();
-		imgd.src=window.d.canvas.toDataURL("image/png");
+		imgd.src=window.d.canvas.toDataURL();
 		imgd.onload=function(){
 		window.memvas.width=window.d.canvas.height;
 		window.memvas.height=window.d.canvas.width;
 		window.memtext.save();
 		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
-		window.memtext.rotate(-90*Math.PI/180);
+		window.memtext.rotate(Math.PI/2);
 		window.memtext.drawImage(imgd,window.memvas.width,window.memvas.height);
 		window.memtext.restore();
-		callback(window.memvas.toDataURL("image/png"));
-		}*/
+		}
+		callback(window.memvas.toDataURL());
 	}catch(e){alert(e);}}
 	function Carver(canvasId, url) {
 		// create canvas & drawing context
