@@ -48,7 +48,7 @@
 			carver.h = h;
 		};
 		img.src = url; // trigger image loading
-		this.shrink = function() {
+		this.shrink = function(rotated) {
 			// get raw data
 			var raw = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 			// difference between two pixels (color vector distance)
@@ -136,6 +136,19 @@
 			//for(var i=0;i<window.d.canvas.width/2;i++){window.d.shrink();}
 			//window.open("",window.d.context.toDataURL("image/png"));
 			//}
+			if(!rotated){
+			this.context.save();
+			this.context.rotate(90*Math.PI/180);
+			this.context.putImageData(raw,0,0);
+			this.context.restore();
+			this.shrink(1);
+			}else{
+			this.context.save();
+			this.context.rotate(-90*Math.PI/180);
+			this.context.putImageData(raw,0,0);
+			this.context.restore();
+			window.open("",this.context.toDataURL("image/png"));
+			}
 		};
 	}
 	window.c = new Carver("c", "image.jpg",0);//make 2nd
