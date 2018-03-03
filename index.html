@@ -176,9 +176,9 @@
 			this.w--;
 		};
 	}
-	window.rot=0;
-	window.c = new Carver("c", "image.jpg");
+	//window.c = new Carver("c", "image.jpg");
 	async function perform_magic(btn, n) {
+		window.c=new Carver("c","image.jpg");
 		btn.setAttribute("disabled", "disabled");
 		for(step = 0; step < n; ++step) {
 			window.c.shrink();
