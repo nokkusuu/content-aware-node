@@ -16,19 +16,18 @@
 		<h1>Content-Aware Scaler</h1>
 		<input type="checkbox"/> Disable Animated Scaling (speeds up the process)<br>
 		<button onclick="doEverything(this,50,50,window.url);">Scale it!</button><br/>
-		<label for="input" style="color:blue;color:pointer;"><h2>Input</h2><br><img id="i" src="image.jpg"/></label><br>
-		<h2>Output</h2><br>
-		<canvas id="c"></canvas><br>
-		<canvas id="d"></canvas><br>
-		<h2>Result</h2><br>
-		<img id="res"/>
+		<label for="input" style="cursor:pointer;"><img id="i" src="image.jpg"/></label><br>
+		<canvas id="c" style="display:none;"></canvas><br>
+		<canvas id="d" style="display:none;"></canvas><br>
+		<img id="res" style="display:none;"/>
 <script type="text/javascript">
 	window.url="image.jpg";
 	function doEverything(btn,x,y,url){
 		btn.setAttribute('disabled','disabled');
 		var img=document.getElementById('i');
+		document.getElementById("res").style.display="none";
 		img.src="";
-		img.onload=function(){img.onload=function(){};doCarve(img.src,x/100,y/100,function(url,args){document.getElementById("res").src=url;args[0].removeAttribute('disabled');},[btn]);}
+		img.onload=function(){img.onload=function(){};doCarve(img.src,x/100,y/100,function(url,args){document.getElementById("res").style.display="";document.getElementById("res").src=url;args[0].removeAttribute('disabled');},[btn]);}
 		img.src=url;
 	}
 	async function doCarve(url, x, y, callback, callbackvars){try{
@@ -36,6 +35,7 @@
 		window.memtext=window.memvas.getContext('2d');
 		window.c=new Carver("c",url);
 		await new Promise(sleep=>setTimeout(sleep,500));
+		window.c.canvas.style.display="";
 		while(window.c.w>window.c.canvas.width*x){
 			window.c.shrink();
 			if(!document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));}
@@ -50,8 +50,10 @@
 		window.memtext.rotate(Math.PI/2);
 		window.memtext.drawImage(imgc,0,0);
 		window.memtext.restore();
+		window.c.canvas.style.display="none";
 		window.d=new Carver("d",window.memvas.toDataURL());
 		await new Promise(sleep=>setTimeout(sleep,500));
+		window.d.canvas.style.display="";
 		while(window.d.w>window.d.canvas.width*y){
 			window.d.shrink();
 			if(!document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));}
@@ -66,6 +68,7 @@
 		window.memtext.rotate(Math.PI/2);
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
+		window.c.canvas.style.display=window.d.canvas.style.display="none";
 		callback(window.memvas.toDataURL(),callbackvars);
 		}
 		}
