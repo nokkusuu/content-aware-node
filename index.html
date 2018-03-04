@@ -1,7 +1,7 @@
 <!DOCTYPE html5>
 <html>
 	<head>
-		<title>Content Aware Scaling</title>
+		<title>Content-Aware Scaler</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<script>window.onerror = function (errorMsg, url, lineNumber) {alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);}</script>
@@ -14,16 +14,16 @@
 	</head>
 	<body><div>
 	        <input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
-		<button onclick="perform_magic(this, window.c.canvas.width);">Shrink 100%</button><br>
-		<button onclick="perform_magic(this, 20);">Shrink by 10 Columns</button><br>
-		<button onclick="doEverything(this,50,'image.jpg');">Content Aware Scale</button><br/>
-		<label for="input"><h3>Input</h3><img id="i"/></label><br>
-		<h3>Output</h3>
+		<h1>Content-Aware Scaler</h1>
+		<button onclick="doEverything(this,50,window.url);">Scale it!</button><br/>
+		<label for="input" style="color:blue;color:pointer;"><h2>Input</h2><br><img id="i"/></label><br>
+		<h2>Output</h2><br>
 		<canvas id="c"></canvas><br>
 		<canvas id="d"></canvas><br>
-		<h3>Result</h3>
+		<h2>Result</h2><br>
 		<img id="res"/>
 <script type="text/javascript">
+	window.url="image.jpg";
 	function doEverything(btn,scale,url){
 		btn.setAttribute('disabled','disabled');
 		var img=document.getElementById('i');
@@ -171,22 +171,12 @@
 			this.w--;
 		};
 	}
-	//window.c = new Carver("c", "image.jpg");
-	async function perform_magic(btn, n) {
-		window.c=new Carver("c","image.jpg");
-		btn.setAttribute("disabled", "disabled");
-		for(step = 0; step < n; ++step) {
-			window.c.shrink();
-			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));
-		}
-		btn.removeAttribute("disabled");
-	}
 	document.querySelector('#input').onchange=function(){
 	var file    = document.querySelector('#input').files[0];
 	var reader  = new FileReader();
 	reader.addEventListener("load", function () {
-		document.querySelector('img').src=reader.result;
-		window.c=new Carver("c", reader.result);
+		document.getElementById('i').src=reader.result;
+		window.url=reader.result;
 	}, false);
   if (file) {
     reader.readAsDataURL(file);
