@@ -65,7 +65,7 @@
 		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
 		window.memtext.rotate(Math.PI/2);
 		window.memtext.scale(-1,-1);
-		window.memtext.drawImage(imgd,0,0);
+		window.memtext.drawImage(imgd,window.memvas.width,window.memvas.height);
 		window.memtext.restore();
 		callback(window.memvas.toDataURL(),callbackvars);
 		}
