@@ -16,7 +16,7 @@
 		<h1>Content-Aware Scaler</h1>
 		<input type="checkbox"/> Disable Animated Scaling (speeds up the process)<br>
 		<button onclick="doEverything(this,50,window.url);">Scale it!</button><br/>
-		<label for="input" style="color:blue;color:pointer;"><h2>Input</h2><br><img id="i"/></label><br>
+		<label for="input" style="color:blue;color:pointer;"><h2>Input</h2><br><img id="i" src="image.jpg"/></label><br>
 		<h2>Output</h2><br>
 		<canvas id="c"></canvas><br>
 		<canvas id="d"></canvas><br>
@@ -27,6 +27,7 @@
 	function doEverything(btn,scale,url){
 		btn.setAttribute('disabled','disabled');
 		var img=document.getElementById('i');
+		img.src="";
 		img.onload=function(){doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url,args){document.getElementById("res").src=url;args[0].removeAttribute('disabled');},[btn]);}
 		img.src=url;
 	}
@@ -173,16 +174,14 @@
 		};
 	}
 	document.querySelector('#input').onchange=function(){
-	var file    = document.querySelector('#input').files[0];
-	var reader  = new FileReader();
-	reader.addEventListener("load", function () {
-		document.getElementById('i').src=reader.result;
+	var file = document.querySelector('#input').files[0];
+	var reader = new FileReader();
+	reader.addEventListener("load",function(){
 		window.url=reader.result;
-	}, false);
-  if (file) {
-    reader.readAsDataURL(file);
-  }
-}
+		document.getElementById("i").src=window.url;
+	},false);
+	if(file){reader.readAsDataURL(file);}
+	}
 </script>
 </div></body>
 </html>
