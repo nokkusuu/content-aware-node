@@ -19,7 +19,7 @@
 		<label for="input" style="cursor:pointer;"><img id="i" src="image.jpg"/></label><br>
 		<canvas id="c" style="display:none;"></canvas><br>
 		<canvas id="d" style="display:none;"></canvas><br>
-		<img id="res" style="display:none;"/>
+		<a id="res" style="display:none;" href="image.jpg" download="an.aware.png"><h2>Result</h2><img id="r"/></a>
 <script type="text/javascript">
 	window.url="image.jpg";
 	function doEverything(btn,x,y,url){
@@ -27,7 +27,7 @@
 		var img=document.getElementById('i');
 		document.getElementById("res").style.display="none";
 		img.src="";
-		img.onload=function(){img.onload=function(){};doCarve(img.src,x/100,y/100,function(url,args){document.getElementById("res").style.display="";document.getElementById("res").src=url;args[0].removeAttribute('disabled');},[btn]);}
+		img.onload=function(){img.onload=function(){};doCarve(img.src,x/100,y/100,function(url,args){document.getElementById("res").style.display="";document.getElementById("res").href=document.getElementById("r").src=url;args[0].removeAttribute('disabled');},[btn]);}
 		img.src=url;
 	}
 	async function doCarve(url, x, y, callback, callbackvars){try{
@@ -41,7 +41,7 @@
 			if(!document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));}
 		}
 		var imgc=new Image();
-		imgc.src=window.c.canvas.toDataURL();
+		imgc.src=window.c.canvas.toDataURL("image/png");
 		imgc.onload=async function(){
 		window.memvas.width=window.c.h;
 		window.memvas.height=window.c.w;
@@ -51,7 +51,7 @@
 		window.memtext.drawImage(imgc,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display="none";
-		window.d=new Carver("d",window.memvas.toDataURL());
+		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		await new Promise(sleep=>setTimeout(sleep,500));
 		window.d.canvas.style.display="";
 		while(window.d.w>window.d.canvas.width*y){
@@ -59,7 +59,7 @@
 			if(!document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));}
 		}
 		var imgd=new Image();
-		imgd.src=window.d.canvas.toDataURL();
+		imgd.src=window.d.canvas.toDataURL("image/png");
 		imgd.onload=async function(){
 		window.memvas.width=window.d.h;
 		window.memvas.height=window.d.w;
@@ -69,7 +69,7 @@
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
-		callback(window.memvas.toDataURL(),callbackvars);
+		callback(window.memvas.toDataURL("image/png"),callbackvars);
 		}
 		}
 	}catch(e){alert(e);}}
