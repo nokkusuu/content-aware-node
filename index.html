@@ -28,7 +28,7 @@
 		btn.setAttribute('disabled','disabled');
 		var img=document.getElementById('i');
 		img.src="";
-		img.onload=function(){doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url,args){document.getElementById("res").src=url;args[0].removeAttribute('disabled');},[btn]);}
+		img.onload=function(){img.onload=function(){};doCarve(img.src,(scale/100)*img.width,(scale/100)*img.height,function(url,args){document.getElementById("res").src=url;args[0].removeAttribute('disabled');},[btn]);}
 		img.src=url;
 	}
 	async function doCarve(url, x, y, callback, callbackvars){try{
