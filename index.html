@@ -36,7 +36,7 @@
 		window.memtext=window.memvas.getContext('2d');
 		window.c=new Carver("c",url);
 		await new Promise(sleep=>setTimeout(sleep,500));
-		while(window.c.w>window.c.canvas.width/x){
+		while(window.c.w>window.c.canvas.width*x){
 			window.c.shrink();
 			if(!document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));}
 		}
@@ -52,7 +52,7 @@
 		window.memtext.restore();
 		window.d=new Carver("d",window.memvas.toDataURL());
 		await new Promise(sleep=>setTimeout(sleep,500));
-		while(window.d.w>window.d.canvas.width/y){
+		while(window.d.w>window.d.canvas.width*y){
 			window.d.shrink();
 			if(!document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));}
 		}
