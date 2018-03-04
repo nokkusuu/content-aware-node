@@ -40,7 +40,7 @@
 			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));
 		}
 		var imgc=new Image();
-		imgc.src=window.c.canvas.toDataURL("image/png");
+		imgc.src=window.c.canvas.toDataURL();
 		imgc.onload=async function(){
 		window.memvas.width=window.c.canvas.height;
 		window.memvas.height=window.c.canvas.width;
@@ -49,7 +49,7 @@
 		window.memtext.rotate(Math.PI/2);
 		window.memtext.drawImage(imgc,0,0);
 		window.memtext.restore();
-		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
+		window.d=new Carver("d",window.memvas.toDataURL());
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var o=0;o<y;o++){
 			window.d.shrink();
@@ -57,17 +57,18 @@
 		}
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL();
-		imgd.onload=function(){
+		imgd.onload=async function(){
 		window.memvas.width=window.d.canvas.height;
 		window.memvas.height=window.d.canvas.width;
 		window.memtext.save();
 		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
 		window.memtext.rotate(Math.PI/2);
-		window.memtext.drawImage(imgd,window.memvas.width,window.memvas.height);
+		window.memtext.scale(-1,-1);
+		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
-		}
-		}
 		callback(window.memvas.toDataURL(),callbackvars);
+		}
+		}
 	}catch(e){alert(e);}}
 	function Carver(canvasId, url) {
 		// create canvas & drawing context
