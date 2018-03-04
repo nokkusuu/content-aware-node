@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<script>window.onerror = function (errorMsg, url, lineNumber) {alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);}</script>
 		<style type="text/css">
+			h3{text-decoration:none;}
 			canvas{border:none;}
 			img,canvas{width:75%;height:auto;}
 			#d{-ms-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);transform:rotate(-90deg);}
@@ -16,10 +17,10 @@
 		<h1>Content-Aware Scaler</h1>
 		<input type="checkbox"/> Disable Animated Scaling (speeds up the process)<br>
 		<button onclick="doEverything(this,50,50,window.url);">Scale it!</button><br/>
-		<label for="input" style="cursor:pointer;"><img id="i" src="image.jpg"/></label><br>
+		<label for="input" style="cursor:pointer;"><h3>Input</h3><img id="i" src="image.jpg"/></label><br>
 		<canvas id="c" style="display:none;"></canvas><br>
 		<canvas id="d" style="display:none;"></canvas><br>
-		<a id="res" style="display:none;" href="image.jpg" download="an.aware.png"><h2>Result</h2><img id="r"/></a>
+		<a id="res" style="display:none;" href="image.jpg" download="an.aware.png"><h3>Result</h3><img id="r"/></a>
 <script type="text/javascript">
 	window.url="image.jpg";
 	function doEverything(btn,x,y,url){
