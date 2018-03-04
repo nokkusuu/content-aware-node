@@ -26,6 +26,11 @@
 <script type="text/javascript">
 	window.url="image.jpg";
 	window.wait=1;
+	function blobToDataURL(blob,callback){
+		var a = new FileReader();
+		a.onload = function(e) {callback(e.target.result);}
+		a.readAsDataURL(blob);
+}
 	async function doGIF(btn,url){
 		window.url=url;
 		window.wait=1;
@@ -36,7 +41,7 @@
 			window.gif.addFrame(window.memvas,{delay:100});
 			window.wait=1;
 		}
-		window.gif.on('finished',function(blob){window.open(URL.createObjectURL(blob));});
+		window.gif.on('finished',function(blob){blobToDataURL(blob,window.open);});
 		window.gif.render();
 		btn.removeAttribute("disabled");
 	}
