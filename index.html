@@ -43,8 +43,8 @@
 		var imgc=new Image();
 		imgc.src=window.c.canvas.toDataURL();
 		imgc.onload=async function(){
-		window.memvas.width=window.c.canvas.height;
-		window.memvas.height=window.c.canvas.width;
+		window.memvas.width=window.c.h;
+		window.memvas.height=window.c.w;
 		window.memtext.save();
 		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
 		window.memtext.rotate(Math.PI/2);
@@ -59,8 +59,8 @@
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL();
 		imgd.onload=async function(){
-		window.memvas.width=window.d.canvas.height;
-		window.memvas.height=window.d.canvas.width;
+		window.memvas.width=window.d.h;
+		window.memvas.height=window.d.w;
 		window.memtext.save();
 		window.memtext.translate(window.memvas.width,window.memvas.height/window.memvas.width);
 		window.memtext.rotate(Math.PI/2);
