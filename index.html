@@ -14,6 +14,7 @@
 	<body><div>
 	        <input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
 		<h1>Content-Aware Scaler</h1>
+		<input type="checkbox"/> Disable Animated Scaling (speeds up the process)
 		<button onclick="doEverything(this,50,window.url);">Scale it!</button><br/>
 		<label for="input" style="color:blue;color:pointer;"><h2>Input</h2><br><img id="i"/></label><br>
 		<h2>Output</h2><br>
@@ -36,7 +37,7 @@
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var i=0;i<x;i++){
 			window.c.shrink();
-			await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));
+			if(document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));}
 		}
 		var imgc=new Image();
 		imgc.src=window.c.canvas.toDataURL();
