@@ -31,13 +31,14 @@
 		window.wait=1;
 		window.gif=new GIF({debug:true});
 		for(var i=0;i<19;i++){
-			doEverything(btn,95,95,window.url,function(url,args){window.url=url;window.wait=0;});
+			doEverything(btn,95,95,window.url,function(url){window.url=url;window.wait=0;});
 			while(window.wait){await new Promise(sleep=>setTimeout(sleep,0));}
 			window.gif.addFrame(window.memvas,{delay:100});
 			window.wait=1;
 		}
 		window.gif.on('finished',function(blob){window.open(URL.createObjectURL(blob));});
 		window.gif.render();
+		btn.removeAttribute("disabled");
 	}
 	function doEverything(btn,x,y,url,cb){
 		btn.setAttribute('disabled','disabled');
