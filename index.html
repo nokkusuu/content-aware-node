@@ -5,7 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<script>window.onerror = function (errorMsg, url, lineNumber) {alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);}</script>
-		<script src="https://cdn.rawgit.com/jnordberg/gif.js/6258ac58/dist/gif.js"></script>
+		<script src="gif.js"></script>
 		<style type="text/css">
 			h3{text-decoration:underline;color:blue;}
 			canvas{border:none;}
@@ -29,7 +29,7 @@
 	async function doGIF(btn,url){
 		window.url=url;
 		window.wait=1;
-		window.gif=new GIF({debug:true,workerScript:"https://cdn.rawgit.com/jnordberg/gif.js/6258ac58/dist/gif.worker.js"});
+		window.gif=new GIF({debug:true});
 		for(var i=0;i<19;i++){
 			doEverything(btn,95,95,window.url,function(url,args){window.url=url;window.wait=0;});
 			while(window.wait){await new Promise(sleep=>setTimeout(sleep,0));}
