@@ -18,6 +18,7 @@
 		<h1>Content-Aware Scaler</h1>
 		<input type="checkbox"/> Disable Animated Scaling (speeds up the process)<br>
 		<button onclick="doEverything(this,50,50,window.url);">Scale it!</button><br/>
+		<button onclick="for(var i=0;i<"></button<br>
 		<label for="input" style="cursor:pointer;"><h3>Input</h3><img id="i" src="image.jpg"/></label><br>
 		<canvas id="c" style="display:none;"></canvas><br>
 		<canvas id="d" style="display:none;"></canvas><br>
@@ -40,7 +41,7 @@
 		window.c.canvas.style.display="";
 		while(window.c.w>window.c.canvas.width*x){
 			window.c.shrink();
-			if(!document.querySelector('input[type=checkbox]').checked){await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));}
+			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?1:(window.c.canvas.width/50)));
 		}
 		var imgc=new Image();
 		imgc.src=window.c.canvas.toDataURL("image/png");
@@ -58,7 +59,7 @@
 		window.d.canvas.style.display="";
 		while(window.d.w>window.d.canvas.width*y){
 			window.d.shrink();
-			if(!document.querySelector('input[type=checkbox]').checked){await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));}
+			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?1:(window.d.canvas.width/50)));
 		}
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL("image/png");
