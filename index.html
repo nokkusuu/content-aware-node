@@ -5,6 +5,7 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<script>window.onerror = function (errorMsg, url, lineNumber) {alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);}</script>
+		<script src="https://cdn.rawgit.com/jnordberg/gif.js/6258ac58/dist/gif.js"></script>
 		<style type="text/css">
 			h3{text-decoration:underline;color:blue;}
 			canvas{border:none;}
@@ -70,6 +71,10 @@
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
+		var gif=new GIF({workers:2,quality:10});
+		gif.addFrame(window.memvas,{delay:200});
+		gif.on('finished',function(blob){window.open(URL.createObjectURL(blob));});
+		gif.render();
 		callback(window.memvas.toDataURL("image/png"),callbackvars);
 		}
 		}
