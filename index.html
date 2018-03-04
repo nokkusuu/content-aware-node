@@ -52,7 +52,7 @@
 		window.memtext.restore();
 		window.d=new Carver("d",window.memvas.toDataURL());
 		await new Promise(sleep=>setTimeout(sleep,500));
-		while(window.d.w>x){
+		while(window.d.w>y){
 			window.d.shrink();
 			if(!document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));}
 		}
