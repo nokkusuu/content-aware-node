@@ -17,33 +17,44 @@
 	        <input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
 		<h1>Content-Aware Scaler</h1>
 		<input type="checkbox"/> Disable Animated Scaling (speeds up the process)<br>
-		<button onclick="doEverything(this,50,50,window.url);">Scale it!</button><br/>
-		<button onclick="for(var i=0;i<"></button<br>
+		<button onclick="doEverything(this,50,50,window.url,function(url,args){document.getElementById('res').style.display='';document.getElementById('res').href=document.getElementById('r').src=url;args[0].removeAttribute('disabled');});">Scale it!</button><br/>
+		<button onclick="doGIF(this,window.url);">Scale and make GIF</button><br>
 		<label for="input" style="cursor:pointer;"><h3>Input</h3><img id="i" src="image.jpg"/></label><br>
 		<canvas id="c" style="display:none;"></canvas><br>
 		<canvas id="d" style="display:none;"></canvas><br>
 		<a id="res" style="display:none;" href="image.jpg" download="an.aware.png"><h3>Result</h3><img id="r"/></a>
 <script type="text/javascript">
 	window.url="image.jpg";
-	function doEverything(btn,x,y,url){
+	window.wait=1;
+	async function doGIF(btn,url){
+		window.url=url;
+		window.wait=1;
+		window.gif=new GIF({workers:2,quality:10});
+		for(var i=0;i<19;i++){
+			doEverything(btn,5,5,window.url,function(url,args){window.url=url;window.wait=0;});
+			while(window.wait){}
+			window.gif.addFrame(window.memvas,{delay:100});
+		}
+		window.gif.on('finished',function(blob){window.open(URL.createObjectURL(blob));});
+		window.gif.render();
+	}
+	function doEverything(btn,x,y,url,cb){
 		btn.setAttribute('disabled','disabled');
 		var img=document.getElementById('i');
 		document.getElementById("res").style.display="none";
 		img.src="";
-		img.onload=function(){img.onload=function(){};doCarve(img.src,x/100,y/100,function(url,args){document.getElementById("res").style.display="";document.getElementById("res").href=document.getElementById("r").src=url;args[0].removeAttribute('disabled');},[btn]);}
+		img.onload=function(){img.onload=function(){};doCarve(img.src,x/100,y/100,cb,[btn]);}
 		img.src=url;
 	}
 	async function doCarve(url, x, y, callback, callbackvars){try{
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
-		var gif=new GIF({workers:2,quality:10});
 		window.c=new Carver("c",url);
 		await new Promise(sleep=>setTimeout(sleep,500));
 		window.c.canvas.style.display="";
 		while(window.c.w>window.c.canvas.width*x){
 			window.c.shrink();
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?1:(window.c.canvas.width/50)));
-			gif.addFrame(window.c.canvas,{delay:100});
 		}
 		var imgc=new Image();
 		imgc.src=window.c.canvas.toDataURL("image/png");
@@ -62,7 +73,6 @@
 		while(window.d.w>window.d.canvas.width*y){
 			window.d.shrink();
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?1:(window.d.canvas.width/50)));
-			gif.addFrame(window.d.canvas,{delay:100});
 		}
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL("image/png");
@@ -75,9 +85,6 @@
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
-		gif.addFrame(window.memvas,{delay:1000});
-		gif.on('finished',function(blob){window.open(URL.createObjectURL(blob));});
-		gif.render();
 		callback(window.memvas.toDataURL("image/png"),callbackvars);
 		}
 		}
