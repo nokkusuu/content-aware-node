@@ -37,7 +37,7 @@
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var i=0;i<x;i++){
 			window.c.shrink();
-			if(document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));}
+			if(!document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.c.canvas.width/50));}
 		}
 		var imgc=new Image();
 		imgc.src=window.c.canvas.toDataURL();
@@ -53,7 +53,7 @@
 		await new Promise(sleep=>setTimeout(sleep,500));
 		for(var o=0;o<y;o++){
 			window.d.shrink();
-			if(document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));}
+			if(!document.querySelector('input[type=checkbox]').selected){await new Promise(sleep=>setTimeout(sleep,window.d.canvas.width/50));}
 		}
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL();
