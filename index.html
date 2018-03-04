@@ -32,7 +32,7 @@
 		window.gif=new GIF({debug:true,workerScript:"https://cdn.rawgit.com/jnordberg/gif.js/6258ac58/dist/gif.worker.js"});
 		for(var i=0;i<19;i++){
 			doEverything(btn,5,5,window.url,function(url,args){window.url=url;window.wait=0;});
-			while(window.wait){}
+			while(window.wait){await new Promise(sleep=>setTimeout(sleep,0));}
 			window.gif.addFrame(window.memvas,{delay:100});
 		}
 		window.gif.on('finished',function(blob){window.open(URL.createObjectURL(blob));});
