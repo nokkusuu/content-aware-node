@@ -36,12 +36,14 @@
 	async function doCarve(url, x, y, callback, callbackvars){try{
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
+		var gif=new GIF({workers:2,quality:10});
 		window.c=new Carver("c",url);
 		await new Promise(sleep=>setTimeout(sleep,500));
 		window.c.canvas.style.display="";
 		while(window.c.w>window.c.canvas.width*x){
 			window.c.shrink();
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?1:(window.c.canvas.width/50)));
+			gif.addFrame(window.c.canvas,{delay:100});
 		}
 		var imgc=new Image();
 		imgc.src=window.c.canvas.toDataURL("image/png");
@@ -60,6 +62,7 @@
 		while(window.d.w>window.d.canvas.width*y){
 			window.d.shrink();
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?1:(window.d.canvas.width/50)));
+			gif.addFrame(window.d.canvas,{delay:100});
 		}
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL("image/png");
@@ -72,8 +75,7 @@
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
-		var gif=new GIF({workers:2,quality:10});
-		gif.addFrame(window.memvas,{delay:200});
+		gif.addFrame(window.memvas,{delay:1000});
 		gif.on('finished',function(blob){window.open(URL.createObjectURL(blob));});
 		gif.render();
 		callback(window.memvas.toDataURL("image/png"),callbackvars);
