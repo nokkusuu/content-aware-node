@@ -9,7 +9,8 @@
 		<style type="text/css">
 			h3{text-decoration:underline;color:blue;}
 			canvas{border:none;}
-			img,canvas{width:75%;height:auto;}
+			@media screen and (orientation:portrait){img,canvas{width:75%;height:auto;}}
+			@media screen and (orientation:landscape){img,canvas{width:auto;height:75%;}}
 			#d{-ms-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);transform:rotate(-90deg);}
 		</style>
 	</head>
