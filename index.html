@@ -38,9 +38,7 @@
 		window.gif=new GIF({debug:true});
 		for(var i=0;i<19;i++){
 			doEverything(btn,95,95,window.url,function(url){window.url=url;window.wait=0;});
-			while(window.wait){await new Promise(sleep=>setTimeout(sleep,0));}
-			window.gif.addFrame(window.c.canvas,{delay:25});
-			window.gif.addFrame(window.d.canvas,{delay:25});
+			while(window.wait){try{window.gif.addFrame(window.c.canvas,{delay:25});}catch(e){console.log(e);}await new Promise(sleep=>setTimeout(sleep,0));}
 			window.gif.addFrame(window.memvas,{delay:50});
 			window.wait=1;
 		}
