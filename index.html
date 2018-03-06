@@ -73,7 +73,7 @@
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:(window.c.canvas.width/50)));
 		}
 		window.c.canvas.style.display="none";
-		callback(window.memvas.toDataURL("image/png"),callbackvars);
+		callback(window.c.canvas.toDataURL("image/png"),callbackvars);
 		
 	}
 	async function doCarve(url, x, y, callback, callbackvars){try{
