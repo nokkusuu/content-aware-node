@@ -98,7 +98,9 @@
 		window.d.canvas.style.display="";
 		while(window.d.w>window.d.canvas.width*y){
 			window.d.shrink();
-			rotCanvas(window.d.canvas,1);window.gif.addFrame(window.d.canvas,{delay:25});rotCanvas(window.d.canvas,0);
+			//rotCanvas(window.d.canvas,1);
+			window.gif.addFrame(window.d.canvas,{delay:25});
+			//rotCanvas(window.d.canvas,0);
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:(window.d.canvas.width/50)));
 		}
 		var imgd=new Image();
