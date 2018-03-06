@@ -220,7 +220,7 @@
 			// now dealing with one less column
 			this.w--;
 		};
-		this.shrinkh = function() {
+		this.shrinkh = function() {try{
 			// get raw data
 			var raw = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 			// difference between two pixels (color vector distance)
@@ -302,7 +302,7 @@
 			this.context.putImageData(raw, 0, 0);
 			// now dealing with one less column
 			this.h--;
-		};
+		}catch(e){alert(e);}};
 	}
 	document.querySelector('#input').onchange=function(){
 	var file = document.querySelector('#input').files[0];
