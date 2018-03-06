@@ -54,7 +54,7 @@
 		window.gif=new GIF({debug:true});
 		var tmpcanvas=document.createElement("canvas");
 		for(var i=0;i<19;i++){
-			doEverything(btn,95,95,window.url,function(url){window.url=url;window.wait=0;});
+			doEverything(btn,95,95,window.url,function(url){window.url=url;window.gif.addFrame(window.memvas,{delay:25});window.wait=0;});
 			while(window.wait){await new Promise(sleep=>setTimeout(sleep,0));}
 			window.gif.addFrame(window.memvas,{delay:25});
 			window.wait=1;
@@ -107,7 +107,7 @@
 		window.memtext.save();
 		window.memtext.translate(window.memvas.width/window.memvas.height,window.memvas.height);
 		window.memtext.rotate(Math.PI/-2);
-		window.memtext.drawImage(imgd,0,0);
+		window.memtext.drawImage(imgd,0,-1);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
 		callback(window.memvas.toDataURL("image/png"),callbackvars);
