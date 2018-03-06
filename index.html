@@ -32,13 +32,30 @@
 		a.onload = function(e) {callback(e.target.result);}
 		a.readAsDataURL(blob);
 	}
+	function rotCanvas(canvas,is270){
+		var ctx=canvas.getContext("2d");
+		var img=new Image();
+		var width=canvas.width;
+		var height=canvas.height;
+		img.onload=function(){
+			canvas.width=height;
+			canvas.height=width;
+			ctx.save();
+			if(is270){ctx.translate(canvas.width/canvas.height,canvas.height}else{ctx.translate(canvas.width,canvas.height/canvas.width}
+			ctx.rotate(Math.PI/2);
+			ctx.drawImage(img,0,0);
+			ctx.restore();
+		}
+		img.src=canvas.toDataURL("image/png");
+	}
 	async function doGIF(btn,url){
 		window.url=url;
 		window.wait=1;
 		window.gif=new GIF({debug:true});
+		var tmpcanvas=document.createElement("canvas");
 		for(var i=0;i<19;i++){
 			doEverything(btn,95,95,window.url,function(url){window.url=url;window.wait=0;});
-			while(window.wait){try{window.gif.addFrame(window.c.canvas,{delay:25});}catch(e){console.log(e);}await new Promise(sleep=>setTimeout(sleep,0));}
+			while(window.wait){try{window.gif.addFrame(window.c.canvas,{delay:25});rotCanvas(window.d.canvas);window.gif.addFrame(window.d.canvas,{delay:25});}catch(e){console.log(e);}await new Promise(sleep=>setTimeout(sleep,0));}
 			window.gif.addFrame(window.memvas,{delay:50});
 			window.wait=1;
 		}
