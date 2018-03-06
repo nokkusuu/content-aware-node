@@ -55,7 +55,7 @@
 		var tmpcanvas=document.createElement("canvas");
 		for(var i=0;i<19;i++){
 			doEverything(btn,95,95,window.url,function(url){window.url=url;window.wait=0;});
-			while(window.wait){try{window.gif.addFrame(window.c.canvas,{delay:25});rotCanvas(window.d.canvas);window.gif.addFrame(window.d.canvas,{delay:25});}catch(e){console.log(e);}await new Promise(sleep=>setTimeout(sleep,0));}
+			while(window.wait){await new Promise(sleep=>setTimeout(sleep,0));}
 			window.gif.addFrame(window.memvas,{delay:50});
 			window.wait=1;
 		}
@@ -79,6 +79,7 @@
 		window.c.canvas.style.display="";
 		while(window.c.w>window.c.canvas.width*x){
 			window.c.shrink();
+			try{window.gif.addFrame(window.c.canvas,{delay:25});}catch(e){console.log(e);}
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:(window.c.canvas.width/50)));
 		}
 		var imgc=new Image();
@@ -97,6 +98,7 @@
 		window.d.canvas.style.display="";
 		while(window.d.w>window.d.canvas.width*y){
 			window.d.shrink();
+			rotCanvas(window.d.canvas,1);window.gif.addFrame(window.d.canvas,{delay:25});rotCanvas(window.d.canvas,0);
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:(window.d.canvas.width/50)));
 		}
 		var imgd=new Image();
