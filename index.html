@@ -20,7 +20,7 @@
 		<input type="checkbox"/> Disable Animated Scaling (speeds up the process)<br>
 		<button onclick="doEverything(this,50,50,window.url,function(url,args){document.getElementById('res').download='aware.png';document.getElementById('res').href=document.getElementById('r').src=url;document.getElementById('res').style.display='';args[0].removeAttribute('disabled');});">Scale it!</button><br/>
 		<button onclick="doGIF(this,window.url);">Scale and make GIF</button><br>
-		<button onclick="newScale(this,50,50,window.url,function(url,args){document.getElementById('res').download='aware.png';document.getElementById('res').href=document.getElementById('r').src=url;document.getElementById('res').style.display='';args[0].removeAttribute('disabled');}););">Attempt new scaling method</button><br>
+		<button onclick="newScale(this,50,50,window.url,function(url,args){document.getElementById('res').download='aware.png';document.getElementById('res').href=document.getElementById('r').src=url;document.getElementById('res').style.display='';args[0].removeAttribute('disabled');});">Attempt new scaling method</button><br>
 		<label for="input" style="cursor:pointer;"><h3>Input</h3><img id="i" src="image.jpg"/></label><br>
 		<canvas id="c" style="display:none;"></canvas><br>
 		<canvas id="d" style="display:none;"></canvas><br>
