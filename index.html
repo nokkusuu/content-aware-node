@@ -29,7 +29,7 @@
 	window.wait=1;
 	function blobToDataURL(blob,callback){
 		var a = new FileReader();
-		a.onload = function(e) {callback(e.target.result);}
+		a.onload = function(e){callback(e.target.result);}
 		a.readAsDataURL(blob);
 	}
 	function rotCanvas(canvas,is270){
@@ -206,10 +206,12 @@
 					raw.data[offset+3] = raw.data[offset+7];
 				}
 				// add a single white pixel to the right of the row
+				/*
 				offset = 4 * (this.canvas.width * y + this.w-1);
 				raw.data[offset] = 255;
 				raw.data[offset+1] = 255;
 				raw.data[offset+2] = 255;
+				*/
 			}
 			this.context.putImageData(raw, 0, 0);
 			// now dealing with one less column
