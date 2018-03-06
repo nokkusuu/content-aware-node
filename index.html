@@ -20,6 +20,7 @@
 		<input type="checkbox"/> Disable Animated Scaling (speeds up the process)<br>
 		<button onclick="doEverything(this,50,50,window.url,function(url,args){document.getElementById('res').download='aware.png';document.getElementById('res').href=document.getElementById('r').src=url;document.getElementById('res').style.display='';args[0].removeAttribute('disabled');});">Scale it!</button><br/>
 		<button onclick="doGIF(this,window.url);">Scale and make GIF</button><br>
+		<button onclick="newScale(this,50,50,window.url,function(url,args){document.getElementById('res').download='aware.png';document.getElementById('res').href=document.getElementById('r').src=url;document.getElementById('res').style.display='';args[0].removeAttribute('disabled');}););">Attempt new scaling method</button><br>
 		<label for="input" style="cursor:pointer;"><h3>Input</h3><img id="i" src="image.jpg"/></label><br>
 		<canvas id="c" style="display:none;"></canvas><br>
 		<canvas id="d" style="display:none;"></canvas><br>
@@ -31,7 +32,7 @@
 		var a = new FileReader();
 		a.onload = function(e) {callback(e.target.result);}
 		a.readAsDataURL(blob);
-}
+	}
 	async function doGIF(btn,url){
 		window.url=url;
 		window.wait=1;
@@ -54,6 +55,27 @@
 		img.onload=function(){img.onload=function(){};doCarve(img.src,x/100,y/100,cb,[btn]);}
 		img.src=url;
 	}
+	function newScale(btn,x,y,url,cb){
+		btn.setAttribute('disabled','disabled');
+		var img=document.getElementById('i');
+		document.getElementById("res").style.display="none";
+		img.src="";
+		img.onload=function(){img.onload=function(){};doNewScale(img.src,x/100,y/100,cb,[btn]);}
+		img.src=url;
+	}
+	async function doNewScale(url, x, y, callback, callbackvars){
+		window.c=new Carver("c",url);
+		await new Promise(sleep=>setTimeout(sleep,500));
+		window.c.canvas.style.display="";
+		while((window.c.w>window.c.canvas.width*x)||(window.c.h>window.c.canvas.height*y)){
+			if(!(window.c.w>window.c.canvas.width*x)){window.c.shrinkw();}
+			if(!(window.c.h>window.c.canvas.height*y)){window.c.shrinkh();}
+			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:(window.c.canvas.width/50)));
+		}
+		window.c.canvas.style.display="none";
+		callback(window.memvas.toDataURL("image/png"),callbackvars);
+		
+	}
 	async function doCarve(url, x, y, callback, callbackvars){try{
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
@@ -61,7 +83,7 @@
 		await new Promise(sleep=>setTimeout(sleep,500));
 		window.c.canvas.style.display="";
 		while(window.c.w>window.c.canvas.width*x){
-			window.c.shrink();
+			window.c.shrinkw();
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:(window.c.canvas.width/50)));
 		}
 		var imgc=new Image();
@@ -79,7 +101,7 @@
 		await new Promise(sleep=>setTimeout(sleep,500));
 		window.d.canvas.style.display="";
 		while(window.d.w>window.d.canvas.width*y){
-			window.d.shrink();
+			window.d.shrinkw();
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:(window.d.canvas.width/50)));
 		}
 		var imgd=new Image();
@@ -115,7 +137,7 @@
 			carver.img=img;
 		};
 		img.src = url; // trigger image loading
-		this.shrink = function() {
+		this.shrinkw = function() {
 			// get raw data
 			var raw = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
 			// difference between two pixels (color vector distance)
@@ -197,6 +219,89 @@
 			this.context.putImageData(raw, 0, 0);
 			// now dealing with one less column
 			this.w--;
+		};
+		this.shrinkh = function() {
+			// get raw data
+			var raw = this.context.getImageData(0, 0, this.canvas.width, this.canvas.height);
+			// difference between two pixels (color vector distance)
+			var pixel_diff = function(x0,y0, x1,y1) {
+				var offset0 = 4 * (carver.canvas.height * y0 + x0);
+				var r0 = raw.data[offset0];
+				var g0 = raw.data[offset0 + 1];
+				var b0 = raw.data[offset0 + 2];
+				var offset1 = 4 * (carver.canvas.height * y1 + x1);
+				var r1 = raw.data[offset1];
+				var g1 = raw.data[offset1 + 1];
+				var b1 = raw.data[offset1 + 2];
+				return Math.sqrt(Math.pow(r0 - r1, 2) +
+					Math.pow(g0 - g1, 2) +
+					Math.pow(b0 - b1, 2));
+			};
+			var lowest_score = null;
+			var lowest_points = null;
+			for(i = 0; i < this.h; ++i) { // for each column
+				var score = 0;	// column score
+				var x = i; // starting from i, look around.
+				var path = new Array(); // storing the points to be removed.
+				for(j = 0; j < this.w; j++) {
+					var lots = Math.pow(10, 30);
+					var delta_left = lots, delta_here = lots, delta_right = lots;
+					path.push([x, j]);
+					if(j == this.w - 1) {
+						break;
+					}
+					// comparison between the current pixel and the one under
+					delta_here = pixel_diff(x, j, x, j+1);
+
+					// if there is a pixel on the left, check how different it is.
+					if(x != 0) {
+						delta_left = pixel_diff(x, j, x-1, j+1);
+					}
+					// if there is a pixel on the right, check how different it is.
+					if(x != h-1) {
+						delta_right = pixel_diff(x, j, x+1, j+1);
+					}
+					// check which way we're going next.
+					if(delta_left < delta_here && delta_left < delta_right) {
+						x--; // go down left
+						score += delta_left;
+					} else if(delta_right < delta_here && delta_right < delta_left) {
+						x++; // go down right
+						score += delta_right;
+					} else { // go down
+						score += delta_here;
+					}
+					if(lowest_score != null && score > lowest_score) {
+						break; // no point continuing
+					}
+				}
+				// save the path with the lowest score
+				if(lowest_score == null || score < lowest_score) {
+					lowest_score = score;
+					lowest_points = path;
+				}
+			}
+			// remove the squiggly “line” of points with the lowest score, row by row.
+			for(p = 0; p < lowest_points.length; p++) {
+				var x = lowest_points[p][0];
+				var y = lowest_points[p][1];
+				// shifts all pixels on the right of the selected path one position to the left.
+				for(i = x; i < this.h-1; i++) {
+					var offset = 4 * (this.canvas.height * y + i);
+					raw.data[offset] = raw.data[offset+4];
+					raw.data[offset+1] = raw.data[offset+5];
+					raw.data[offset+2] = raw.data[offset+6];
+					raw.data[offset+3] = raw.data[offset+7];
+				}
+				// add a single white pixel to the right of the row
+				offset = 4 * (this.canvas.height * y + this.h-1);
+				raw.data[offset] = 255;
+				raw.data[offset+1] = 255;
+				raw.data[offset+2] = 255;
+			}
+			this.context.putImageData(raw, 0, 0);
+			// now dealing with one less column
+			this.h--;
 		};
 	}
 	document.querySelector('#input').onchange=function(){
