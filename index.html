@@ -63,19 +63,19 @@
 		img.onload=function(){img.onload=function(){};doNewScale(img.src,x/100,y/100,cb,[btn]);}
 		img.src=url;
 	}
-	async function doNewScale(url, x, y, callback, callbackvars){
+	async function doNewScale(url, x, y, callback, callbackvars){try{
 		window.c=new Carver("c",url);
 		await new Promise(sleep=>setTimeout(sleep,500));
 		window.c.canvas.style.display="";
 		while((window.c.w>window.c.canvas.width*x)||(window.c.h>window.c.canvas.height*y)){
-			if(!(window.c.w>window.c.canvas.width*x)){window.c.shrinkw();}
-			if(!(window.c.h>window.c.canvas.height*y)){window.c.shrinkh();}
+			if(window.c.w<=window.c.canvas.width*x){window.c.shrinkw();}
+			if(window.c.h<=window.c.canvas.height*y){window.c.shrinkh();}
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:(window.c.canvas.width/50)));
 		}
 		window.c.canvas.style.display="none";
 		callback(window.c.canvas.toDataURL("image/png"),callbackvars);
 		
-	}
+	}catch(e){alert(e);}}
 	async function doCarve(url, x, y, callback, callbackvars){try{
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
