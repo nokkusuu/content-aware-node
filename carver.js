@@ -9,8 +9,12 @@
 		window.url=url;
 		window.wait=1;
 		window.gif=new GIF({workers:5});
-		var tmpcanvas=document.createElement("canvas");
-		for(var i=0;i<19;i++){
+		//var tmpcanvas=document.createElement("canvas");
+		var img=document.getElementById("i");
+		img.src="";
+		img.onload=function(){img.onload=function(){};window.gif.addFrame(img,{delay:50});}
+		img.src=url;
+		for(var i=0;i<20;i++){
 			doEverything(btn,95,95,window.url,function(url){window.url=url;window.wait=0;});
 			while(window.wait){await new Promise(sleep=>setTimeout(sleep,0));}
 			window.gif.addFrame(window.memvas,{delay:50});
@@ -63,7 +67,7 @@
 		window.memvas.height=window.d.w;//window.c.canvas.height
 		window.memtext.save();
 		window.memtext.translate(0,window.memvas.height);
-		//window.memtext.scale(2,2);
+		//window.memtext.scale(window.memvas.width/window.memvas.height,2);
 		window.memtext.rotate(Math.PI/-2);
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
