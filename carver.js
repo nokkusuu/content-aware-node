@@ -63,7 +63,7 @@
 		window.memvas.height=window.c.canvas.height;//window.d.w
 		window.memtext.save();
 		window.memtext.translate(0,window.memvas.height);
-		window.memtext.scale(2,2);
+		window.memtext.scale(100-x,100-y);//2,2
 		window.memtext.rotate(Math.PI/-2);
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
