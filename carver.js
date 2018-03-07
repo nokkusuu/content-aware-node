@@ -44,7 +44,7 @@
 		window.memvas.width=window.c.h;
 		window.memvas.height=window.c.w;
 		window.memtext.save();
-		window.memtext.translate(window.memvas.width,window.memvas.width/window.memvas.height);
+		window.memtext.translate(window.memvas.width,0);
 		window.memtext.rotate(Math.PI/2);
 		window.memtext.drawImage(imgc,0,0);
 		window.memtext.restore();
@@ -62,7 +62,7 @@
 		window.memvas.width=window.d.h;
 		window.memvas.height=window.d.w;
 		window.memtext.save();
-		window.memtext.translate(-window.memvas.height/window.memvas.width,window.memvas.height);
+		window.memtext.translate(0,window.memvas.height);
 		window.memtext.rotate(Math.PI/-2);
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
