@@ -16,7 +16,7 @@
 	<body><!--https://www.w3schools.com/html/html5_webworkers.asp-->
 	        <input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
 		<h1>Content-Aware Scaler</h1>
-		<input type="checkbox"/> Disable Animated Scaling (speeds up the process)<br>
+		<input type="checkbox"/> Faster Scaling<br>
 		<button onclick="doEverything(this,50,50,window.url,function(url,args){document.getElementById('res').download='aware.png';document.getElementById('res').href=document.getElementById('r').src=url;document.getElementById('res').style.display='';args[0].removeAttribute('disabled');});">Scale it!</button><br/>
 		<button onclick="doGIF(this,window.url);">Scale and make GIF</button><br>
 		<label for="input" style="cursor:pointer;"><h3>Input</h3><img id="i" src="image.jpg"/></label><br>
