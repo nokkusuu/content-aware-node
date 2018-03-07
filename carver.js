@@ -36,7 +36,7 @@
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
 		window.c=new Carver("c",url);
-		await new Promise(sleep=>setTimeout(sleep,500));
+		while(typeof window.c.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.c.canvas.style.display="";
 		while(window.c.w>window.c.canvas.width*x){
 			window.c.shrink();
@@ -54,7 +54,7 @@
 		window.memtext.restore();
 		window.c.canvas.style.display="none";
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
-		await new Promise(sleep=>setTimeout(sleep,500));
+		while(typeof window.d.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.d.canvas.style.display="";
 		while(window.d.w>window.d.canvas.width*y){
 			window.d.shrink();
