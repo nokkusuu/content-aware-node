@@ -8,7 +8,7 @@
 	async function doGIF(btn,url){
 		window.url=url;
 		window.wait=1;
-		window.gif=new GIF({debug:true});
+		window.gif=new GIF({workers:5});
 		var tmpcanvas=document.createElement("canvas");
 		for(var i=0;i<19;i++){
 			doEverything(btn,95,95,window.url,function(url){window.url=url;window.gif.addFrame(window.memvas,{delay:25});window.wait=0;});
