@@ -11,9 +11,9 @@
 		window.gif=new GIF({workers:5});
 		var tmpcanvas=document.createElement("canvas");
 		for(var i=0;i<19;i++){
-			doEverything(btn,95,95,window.url,function(url){window.url=url;window.gif.addFrame(window.memvas,{delay:25});window.wait=0;});
+			doEverything(btn,95,95,window.url,function(url){window.url=url;window.wait=0;});
 			while(window.wait){await new Promise(sleep=>setTimeout(sleep,0));}
-			window.gif.addFrame(window.memvas,{delay:25});
+			window.gif.addFrame(window.memvas,{delay:50});
 			window.wait=1;
 		}
 		window.gif.on('finished',function(blob){blobToDataURL(blob,function(url){document.getElementById("r").src=url;document.getElementById("res").href=url;document.getElementById("res").download="aware.gif";document.getElementById("res").style.display="";});});
@@ -59,10 +59,11 @@
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL("image/png");
 		imgd.onload=async function(){
-		window.memvas.width=window.d.h;
-		window.memvas.height=window.d.w;
+		window.memvas.width=window.d.h*2;
+		window.memvas.height=window.d.w*2;
 		window.memtext.save();
 		window.memtext.translate(0,window.memvas.height);
+		window.memtext.scale(2,2);
 		window.memtext.rotate(Math.PI/-2);
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
