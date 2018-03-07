@@ -59,8 +59,8 @@
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL("image/png");
 		imgd.onload=async function(){
-		window.memvas.width=window.d.h*2;
-		window.memvas.height=window.d.w*2;
+		window.memvas.width=window.d.h*(100-x);
+		window.memvas.height=window.d.w*(100-y);
 		window.memtext.save();
 		window.memtext.translate(0,window.memvas.height);
 		window.memtext.scale(2,2);
