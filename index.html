@@ -1,7 +1,7 @@
 <!DOCTYPE html5>
 <html>
 	<head>
-		<title>Content-Aware Scaler</title>
+		<title>Content-Aware Scaling</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 		<script>window.onerror=function(errorMsg,url,lineNumber){alert('Error: '+errorMsg+' Script: '+url+' Line: '+lineNumber);}</script>
@@ -15,7 +15,7 @@
 	</head>
 	<body><!--https://www.w3schools.com/html/html5_webworkers.asp-->
 	        <input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
-		<h1>Content-Aware Scaler</h1>
+		<h1>Content-Aware Scaling</h1>
 		<input type="checkbox"/> Faster Scaling<br>
 		<button onclick="doEverything(this,50,50,window.url,function(url,args){document.getElementById('res').download='aware.png';document.getElementById('res').href=document.getElementById('r').src=url;document.getElementById('res').style.display='';args[0].removeAttribute('disabled');});">Scale it!</button><br/>
 		<button onclick="doGIF(this,window.url);">Scale and make GIF</button><br>
