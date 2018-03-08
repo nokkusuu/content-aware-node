@@ -62,12 +62,12 @@
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL("image/png");
 		imgd.onload=async function(){
-		window.memvas.width=window.c.canvas.width;
-		window.memvas.height=window.c.canvas.height;
+		window.memvas.width=window.d.h*(2-y);
+		window.memvas.height=window.d.w*(2-x);
 		window.memtext.save();
 		window.memtext.translate(0,window.memvas.height);
+		window.memtext.scale(2-y,2-x);
 		window.memtext.rotate(Math.PI/-2);
-		window.memtext.scale(2-x,2-y);
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
