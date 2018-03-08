@@ -9,7 +9,6 @@
 		window.url=url;
 		window.wait=1;
 		window.gif=new GIF({workers:5});
-		//var tmpcanvas=document.createElement("canvas");
 		var img=document.getElementById("i");
 		img.src="";
 		img.onload=function(){img.onload=function(){};window.gif.addFrame(img,{delay:50});}
@@ -68,7 +67,7 @@
 		window.memtext.save();
 		window.memtext.translate(0,window.memvas.height);
 		window.memtext.rotate(Math.PI/-2);
-		window.memtext.scale((2-x)*100,(2-y)*100);
+		window.memtext.scale(2-x,2-y);
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
