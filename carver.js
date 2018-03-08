@@ -8,7 +8,7 @@
 	async function doGIF(btn,url){
 		window.url=url;
 		window.wait=1;
-		window.gif=new GIF({workers:5});
+		window.gif=new GIF({workers:5,transparent:"rgba(0,0,0,0)",background:"rgba(255,255,255,0)"});
 		var img=document.getElementById("i");
 		img.src="";
 		img.onload=function(){img.onload=function(){};window.gif.addFrame(img,{delay:50});}
