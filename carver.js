@@ -28,10 +28,10 @@
 		var img=document.getElementById('i');
 		document.getElementById("res").style.display="none";
 		img.src="";
-		img.onload=function(){img.onload=function(){};doCarve(img.src,x/100,y/100,{width:img.width,height:img.height},cb,[btn]);}
+		img.onload=function(){img.onload=function(){};doCarve(img.src,x/100,y/100,cb,[btn]);}
 		img.src=url;
 	}
-	async function doCarve(url, x, y, dims, callback, callbackvars){try{
+	async function doCarve(url, x, y, callback, callbackvars){try{
 		window.memvas=document.createElement('canvas');
 		window.memtext=window.memvas.getContext('2d');
 		window.c=new Carver("c",url);
@@ -62,11 +62,11 @@
 		var imgd=new Image();
 		imgd.src=window.d.canvas.toDataURL("image/png");
 		imgd.onload=async function(){
-		window.memvas.width=dims["width"];
-		window.memvas.height=dims["height"];
+		window.memvas.width=window.c.canvas.width;
+		window.memvas.height=window.d.canvas.width;
 		window.memtext.save();
 		window.memtext.translate(0,window.memvas.height);
-		window.memtext.scale(2-y,2-x);
+		window.memtext.scale(2-x,2-y);
 		window.memtext.rotate(Math.PI/-2);
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
