@@ -17,8 +17,8 @@
 	        <input type="file" id="input" style="visibility:hidden;position:fixed;z-index:-1;bottom:0;right:0;"/>
 		<h1>Content-Aware Scaling</h1>
 		<input type="checkbox"/> Faster Scaling<br>
-		<button onclick="doEverything(this,50,50,window.url,function(url,args){document.getElementById('res').download='aware.png';document.getElementById('res').href=document.getElementById('r').src=url;document.getElementById('res').style.display='';args[0].removeAttribute('disabled');});">Scale it!</button><br/>
-		<button onclick="doGIF(this,window.url);">Scale and make GIF</button><br>
+		<button onclick="doEverything(this,0,window.url,function(url,args){document.getElementById('res').download='aware.png';document.getElementById('res').href=document.getElementById('r').src=url;document.getElementById('res').style.display='';args[0].removeAttribute('disabled');});">2x Scale</button><br/>
+		<button onclick="doGIF(this,window.url);">Generate 20-Frame GIF at 1.05x Scale per Frame</button><br>
 		<label for="input" style="cursor:pointer;"><h3>Input</h3><img id="i" src="image.jpg"/></label><br>
 		<canvas id="c" style="display:none;"></canvas><br>
 		<canvas id="d" style="display:none;"></canvas><br>
