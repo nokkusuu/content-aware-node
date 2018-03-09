@@ -37,7 +37,7 @@
 		window.c=new Carver("c",url);
 		while(typeof window.c.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.c.canvas.style.display="";
-		while(window.c.w>window.c.canvas.width*(gif?0.5:0.95)){
+		while(window.c.w>window.c.canvas.width*(gif?0.95:0.5)){
 			window.c.shrink();
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:100));
 		}
@@ -55,7 +55,7 @@
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		while(typeof window.d.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.d.canvas.style.display="";
-		while(window.d.w>window.d.canvas.width*(gif?0.5:0.95)){
+		while(window.d.w>window.d.canvas.width*(gif?0.95:0.5)){
 			window.d.shrink();
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:100));
 		}
@@ -66,7 +66,7 @@
 		window.memvas.height=window.d.canvas.width;
 		window.memtext.save();
 		window.memtext.translate(0,window.memvas.height);
-		window.memtext.scale(gif?2:1.05,gif?2:1.05);
+		window.memtext.scale(gif?1.05:2,gif?1.05:2);
 		window.memtext.rotate(Math.PI/-2);
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
