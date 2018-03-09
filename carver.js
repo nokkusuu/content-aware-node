@@ -55,7 +55,7 @@
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		while(typeof window.d.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.d.canvas.style.display="";
-		while(window.d.w>window.d.canvas.width*gif?0.5:0.95){
+		while(window.d.w>window.d.canvas.width*(gif?0.5:0.95)){
 			window.d.shrink();
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:100));
 		}
