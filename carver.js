@@ -1,10 +1,5 @@
   window.url="image.jpg";
 	window.wait=1;
-	function blobToDataURL(blob,callback){
-		var a = new FileReader();
-		a.onload = function(e){callback(e.target.result);}
-		a.readAsDataURL(blob);
-	}
 	async function doGIF(btn,url){
 		window.url=url;
 		window.wait=1;
@@ -19,7 +14,7 @@
 			window.gif.addFrame(window.memvas,{delay:50});
 			window.wait=1;
 		}
-		window.gif.on('finished',function(blob){blobToDataURL(blob,function(url){document.getElementById("r").src=url;document.getElementById("res").href=url;document.getElementById("res").download="aware.gif";document.getElementById("res").style.display="";});});
+		window.gif.on('finished',function(blob){var url=window.URL.createObjectURL(blob);document.getElementById("r").src=url;document.getElementById("res").href=url;document.getElementById("res").download="aware.gif";document.getElementById("res").style.display="";});
 		window.gif.render();
 		btn.removeAttribute("disabled");
 	}
@@ -28,7 +23,7 @@
 		var img=document.getElementById('i');
 		document.getElementById("res").style.display="none";
 		img.src="";
-		img.onload=function(){img.onload=function(){};doCarve(img.src,gif,cb,[btn]);}
+		img.onload=function(){img.onload=function(){};doCarve(this.src,gif,cb,[btn]);}
 		img.src=url;
 	}
 	async function doCarve(url, gif, callback, callbackvars){try{
@@ -37,8 +32,10 @@
 		window.c=new Carver("c",url);
 		while(typeof window.c.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.c.canvas.style.display="";
+		if(!gif){document.querySelector("progress").value=0;document.querySelector("progress").max=2*window.c.canvas.width;}
 		while(window.c.w>window.c.canvas.width*(gif?0.95:0.5)){
 			window.c.shrink();
+			document.querySelector("progress").value=window.c.canvas.width-window.c.w;
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:100));
 		}
 		var imgc=new Image();
@@ -55,8 +52,10 @@
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		while(typeof window.d.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.d.canvas.style.display="";
+		if(!gif){document.querySelector("progress").max=window.d.canvas.width;}
 		while(window.d.w>window.d.canvas.width*(gif?0.95:0.5)){
 			window.d.shrink();
+			document.querySelector("progress").value=(window.d.canvas.width/2)-window.d.w;
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:100));
 		}
 		var imgd=new Image();
