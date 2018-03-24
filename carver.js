@@ -8,8 +8,8 @@
 		img.src="";
 		img.onload=function(){img.onload=function(){};window.gif.addFrame(img,{delay:50});}
 		img.src=url;
-		for(var i=0;i<20;i++){
-			doEverything(btn,1,window.url,function(url){window.url=url;window.wait=0;});
+		for(var i=1;i<21;i++){
+			doEverything(btn,i,window.url,function(url){window.url=url;window.wait=0;});
 			while(window.wait){await new Promise(sleep=>setTimeout(sleep,0));}
 			window.gif.addFrame(window.memvas,{delay:50});
 			window.wait=1;
@@ -70,7 +70,7 @@
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
-		document.querySelector("progress").value=0;
+		document.querySelector("progress").value=(!gif)*0.05;
 		callback(window.memvas.toDataURL("image/png"),callbackvars);
 		}
 		}
