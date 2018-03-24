@@ -70,7 +70,7 @@
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
-		document.querySelector("progress").value=(gif?gif:0)*0.05*window.d.canvas.width;
+		if(!gif){document.querySelector("progress").value=0;}
 		callback(window.memvas.toDataURL("image/png"),callbackvars);
 		}
 		}
