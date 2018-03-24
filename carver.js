@@ -35,7 +35,7 @@
 		document.querySelector("progress").max=window.c.canvas.width;
 		while(window.c.w>window.c.canvas.width*(gif?0.95:0.5)){
 			window.c.shrink();
-			document.querySelector("progress").value=(gif?1.05:1.5)*window.c.canvas.width-(window.c.canvas.width/2)-window.c.w;
+			document.querySelector("progress").value=(gif?0.55:1)*window.c.canvas.width-window.c.w;
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:100));
 		}
 		var imgc=new Image();
