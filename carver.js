@@ -32,7 +32,7 @@
 		window.c=new Carver("c",url);
 		while(typeof window.c.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.c.canvas.style.display="";
-		if(!gif){document.querySelector("progress").value=0;document.querySelector("progress").max=2*window.c.canvas.width;}
+		document.querySelector("progress").max=(gif?0.95:0.5)*window.c.canvas.width;
 		while(window.c.w>window.c.canvas.width*(gif?0.95:0.5)){
 			window.c.shrink();
 			document.querySelector("progress").value=window.c.canvas.width-window.c.w;
@@ -52,7 +52,7 @@
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		while(typeof window.d.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.d.canvas.style.display="";
-		if(!gif){document.querySelector("progress").max=window.d.canvas.width;}
+		document.querySelector("progress").max=(gif?0.95:0.5)*window.d.canvas.width;
 		while(window.d.w>window.d.canvas.width*(gif?0.95:0.5)){
 			window.d.shrink();
 			document.querySelector("progress").value=window.d.canvas.width-(window.d.w/2);
