@@ -52,7 +52,7 @@
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		while(typeof window.d.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.d.canvas.style.display="";
-		document.querySelector("progress").max=window.d.canvas.width;
+		document.querySelector("progress").max=window.d.canvas.width/20;
 		while(window.d.w>window.d.canvas.width*(gif?0.95:0.5)){
 			window.d.shrink();
 			document.querySelector("progress").value=(1.5*window.d.canvas.width)-window.d.w;
