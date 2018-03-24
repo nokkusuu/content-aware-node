@@ -32,7 +32,7 @@
 		window.c=new Carver("c",url);
 		while(typeof window.c.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.c.canvas.style.display="";
-		document.querySelector("progress").max=window.c.canvas.width;
+		document.querySelector("progress").max=window.c.canvas.width*(gif?2:1);
 		while(window.c.w>window.c.canvas.width*(gif?0.95:0.5)){
 			window.c.shrink();
 			document.querySelector("progress").value=((gif?(0.95+(gif*0.05)):1)*window.c.canvas.width)-window.d.w;
@@ -55,7 +55,7 @@
 		document.querySelector("progress").max=window.d.canvas.width;
 		while(window.d.w>window.d.canvas.width*(gif?0.95:0.5)){
 			window.d.shrink();
-			document.querySelector("progress").value=((gif?(0.95+(gif*0.05)):1.5)*window.d.canvas.width)-(window.d.w*(gif?1.05:1));
+			document.querySelector("progress").value=((gif?(1+(gif*0.025)):1.5)*window.d.canvas.width)-window.d.w;
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:100));
 		}
 		var imgd=new Image();
