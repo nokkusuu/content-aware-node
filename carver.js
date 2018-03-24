@@ -55,7 +55,7 @@
 		if(!gif){document.querySelector("progress").max=window.d.canvas.width;}
 		while(window.d.w>window.d.canvas.width*(gif?0.95:0.5)){
 			window.d.shrink();
-			document.querySelector("progress").value=(window.d.canvas.width/2)-window.d.w;
+			document.querySelector("progress").value=window.d.canvas.width-(window.d.w/2);
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:100));
 		}
 		var imgd=new Image();
@@ -70,6 +70,7 @@
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
+		document.querySelector("progress").value=0;
 		callback(window.memvas.toDataURL("image/png"),callbackvars);
 		}
 		}
