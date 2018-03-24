@@ -32,7 +32,7 @@
 		window.c=new Carver("c",url);
 		while(typeof window.c.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.c.canvas.style.display="";
-		document.querySelector("progress").max=window.c.canvas.width/(gif?10:1);
+		document.querySelector("progress").max=window.c.canvas.width;
 		while(window.c.w>window.c.canvas.width*(gif?0.95:0.5)){
 			window.c.shrink();
 			document.querySelector("progress").value=window.c.canvas.width-window.c.w;
@@ -52,10 +52,10 @@
 		window.d=new Carver("d",window.memvas.toDataURL("image/png"));
 		while(typeof window.d.img==="undefined"){await new Promise(sleep=>setTimeout(sleep,0));}
 		window.d.canvas.style.display="";
-		document.querySelector("progress").max=window.d.canvas.width/(gif?10:1);
+		document.querySelector("progress").max=window.d.canvas.width;
 		while(window.d.w>window.d.canvas.width*(gif?0.95:0.5)){
 			window.d.shrink();
-			document.querySelector("progress").value=((gif?1.05:1.5)*window.d.canvas.width)-window.d.w;
+			document.querySelector("progress").value=((gif?(1+(gif*0.05)):1.5)*window.d.canvas.width)-window.d.w;
 			await new Promise(sleep=>setTimeout(sleep,document.querySelector('input[type=checkbox]').checked?0:100));
 		}
 		var imgd=new Image();
@@ -70,7 +70,7 @@
 		window.memtext.drawImage(imgd,0,0);
 		window.memtext.restore();
 		window.c.canvas.style.display=window.d.canvas.style.display="none";
-		document.querySelector("progress").value=(!gif)*0.05;
+		document.querySelector("progress").value=(gif?gif:0)*0.05;
 		callback(window.memvas.toDataURL("image/png"),callbackvars);
 		}
 		}
