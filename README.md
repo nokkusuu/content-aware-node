@@ -1,3 +1,2 @@
-# Content-Aware Scaling (seam carving)
-## Done using JavaScript and HTML5 Canvas
-Forked from [nicolasff/canvas-seam-carving](/nicolasff/canvas-seam-carving)
+# Content-Aware Scaling/Seam Carving in NodeJS (WIP)
+Forked from [ayunami2000/content-aware-scaling](/ayunami2000/content-aware-scaling)
